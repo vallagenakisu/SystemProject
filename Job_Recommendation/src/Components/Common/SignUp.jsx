@@ -19,7 +19,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     
     try{
       const response = await axios.post('http://localhost:8000/api/signup',formData);
@@ -27,7 +27,7 @@ const SignUp = () => {
       console.log(response.data.status);
     }
     catch(err){
-      if(err.response && err.response.status === 400){
+      if(err.response && err.response.status === 400){``
         
       }
       else
