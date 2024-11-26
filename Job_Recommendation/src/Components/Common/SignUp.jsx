@@ -43,17 +43,9 @@ const SignUp = () => {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold">Sign up to hire talent</h1>
+            <h1 className="text-2xl font-bold">Sign up to get a JOB</h1>
           </div>
-          <div className="flex justify-between gap-4 mb-4">
-            <button className="flex-1 py-2 px-4 border rounded-lg flex items-center justify-center text-gray-700 bg-white shadow hover:bg-gray-50">
-              <i className="fab fa-apple mr-2"></i> Continue with Apple
-            </button>
-            <button className="flex-1 py-2 px-4 border rounded-lg flex items-center justify-center text-white bg-blue-500 hover:bg-blue-600">
-              <i className="fab fa-google mr-2"></i> Continue with Google
-            </button>
-          </div>
-          <div className="text-center text-gray-500 my-4">or</div>
+          
           <p>{message}</p>
 
           <form onSubmit={handleSubmit}>
@@ -105,6 +97,8 @@ const SignUp = () => {
               <option value="United States">United States</option>
               <option value="India">India</option>
               <option value="Canada">Canada</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="Switzerland">Switzerland</option>
             </select>
             <button
               type="submit"
@@ -118,7 +112,7 @@ const SignUp = () => {
               href="/apply-as-talent"
               className="text-green-600 hover:underline"
             >
-              Apply as talent
+              Register Your Company
             </a>
           </div>
         </div>
