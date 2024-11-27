@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const SignUp = () => {
   const [formData, setFormData] = React.useState({
@@ -8,35 +10,58 @@ const SignUp = () => {
     email: "",
     password: "",
     country: "Bangladesh",
+    profileImage: null,
   });
   const [message, setMessage] = React.useState("");
-  
+  const navigate = useNavigate(); //useNavigate hook Initilization
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === "profileImage") {
+      setFormData({ ...formData, [name]: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    
-    try{
-      const response = await axios.post('http://localhost:8000/api/signup',formData);
+
+    // Create a FormData object which will be sent as to the laravel backend
+
+    const data = new FormData();
+    data.append("firstName", formData.firstName);
+    data.append("lastName", formData.lastName);
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    data.append("country", formData.country);
+    if (formData.profileImage) {
+      data.append("profileImage", formData.profileImage);
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/signup",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setMessage(response.data.message);
       console.log(response.data.status);
-    }
-    catch(err){
-      if(err.response && err.response.status === 400){``
-        
-      }
-      else
-      {
+
+      // Redirect to the main component after successful registration
+      navigate("/");
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setMessage(err.response.data.message);
+      } else {
         console.log(response.data.status);
         setMessage("Something went wrong. Please try again later.");
       }
     }
-    
   };
   return (
     <>
@@ -45,7 +70,7 @@ const SignUp = () => {
           <div className="text-center mb-6">
             <h1 className="text-2xl font-bold">Sign up to get a JOB</h1>
           </div>
-          
+
           <p>{message}</p>
 
           <form onSubmit={handleSubmit}>
@@ -100,6 +125,13 @@ const SignUp = () => {
               <option value="Pakistan">Pakistan</option>
               <option value="Switzerland">Switzerland</option>
             </select>
+            <input
+              type="file"
+              name="profileImage"
+              accept="image/*"
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full mb-4"
+            />
             <button
               type="submit"
               className="bg-green-500 text-white py-2 px-4 rounded-lg w-full hover:bg-green-600"
