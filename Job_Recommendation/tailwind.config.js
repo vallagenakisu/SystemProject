@@ -15,6 +15,16 @@ export default {
         primarytextcolor: "#000000",
 
       },
+      animation: {
+        fade: "fade 3s ease-in-out infinite", // Custom animation
+      },
+      keyframes: {
+        fade: {
+          "0%": { opacity: "0" },  // Start as invisible
+          "70%": { opacity: "1" }, // Fade in
+          "100%": { opacity: "0" }, // Fade out
+        },
+      },
     },
   },
   plugins: [],
