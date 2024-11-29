@@ -10,12 +10,10 @@ export default {
     },
     extend: {
       colors: {
-        primary: "#F36259", // Custom dark blue
-        secondary: "#EED8C7", // Custom light gray
-        //accent: "#FB923C", // Custom coral
-        highlight: "black", // Custom blue
-        //success: "#34D399", // Custom green
-        //error: "#EF4444", // Custom red
+        primarybgcolor: "#A5A5A5",
+        secondarybgcolor: "#FFFFFF",
+        primarytextcolor: "#000000",
+
       },
     },
   },

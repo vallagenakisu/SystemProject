@@ -1,47 +1,66 @@
 import React, { useState } from "react";
 
 const TopMenuBar = () => {
+  const [activeMenu, setActiveMenu] = useState(null);
 
-  const [isSideBarOpen,setIsSideBarOpen] = useState(false);
+  const handleMouseEnter = (menu) => {
+    setActiveMenu(menu);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveMenu(null);
+  };
 
   return (
     <div>
-      
-      <div className="px-4 py-2 flex justify-between items-center fixed z-50 shadow-md bg-primary text-secondary w-full">
-        {/* Logo Section */}
-        <div className="text-xl md:text-2xl font-bold">
-          <a href="/signup">JobSeeker</a>
-        </div>
+      <header className="bg-secondarybgcolor shadow-md relative">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+          {/* Logo */}
+          <span className="text-2xl font-bold text-primarytextcolor">JOBSEEKER</span>
 
-        {/* Navigation Links - Small on mobile, larger on desktop */}
-        <nav className="flex space-x-4 md:space-x-8 text-sm md:text-base">
-          <a href="#home" className="hover:text-highlight">
-            Home
-          </a>
-          <a href="#jobs" className="hover:text-highlight">
-            Jobs
-          </a>
-          <a href="#dashboard" className="hover:text-highlight">
-            Dashboard
-          </a>
-          <a href="#profile" className="hover:text-highlight">
-            Profile
-          </a>
-        </nav>
+          {/* Navigation Links */}
+          <nav
+            className="flex space-x-8 text-primarytextcolor relative"
+            onMouseLeave={handleMouseLeave} // Close popup when mouse leaves nav
+          >
+            <a
+              href="#"
+              className="px-3 py-2 hover:text-black"
+              onMouseEnter={() => handleMouseEnter("findTalent")}
+            >
+              Find Talent
+            </a>
 
-        {/* Right Section - Profile Avatar */}
-        <div className="flex items-center space-x-3 md:space-x-4">
-          <div className="relative">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="User Avatar"
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white"
-            />
-            <span className="absolute bottom-0 right-0 block w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full border-2 border-blue-800"></span>
+            <a
+              href="#"
+              className="px-3 py-2 hover:text-black"
+              onMouseEnter={() => handleMouseEnter("findWork")}
+            >
+              Find Work
+            </a>
+          </nav>
+
+          {/* Right Actions */}
+          <div className="flex items-center space-x-8">
+            <button className="md:block text-lg text-black hover:text-green-600">
+              Log in
+            </button>
+            <button className="bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
+              Sign up
+            </button>
           </div>
         </div>
-      </div>
-    
+
+        {/* Popup Menu */}
+        {activeMenu && (
+          <div className="absolute top-full left-0 bg-primarybgcolor shadow-lg w-full">
+            <div className="container mx-auto px-6 py-6">
+              {activeMenu === "findTalent" && <p>Find Talent Content Here</p>}
+              {activeMenu === "findWork" && <p>Find Work Content Here</p>}
+            </div>
+          </div>
+        )}
+      </header>
     </div>
   );
 };
