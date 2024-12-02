@@ -1,53 +1,66 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const TopMenuBar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleMouseEnter = (menu) => {
-    setActiveMenu(menu);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const handleMouseLeave = () => {
-    setActiveMenu(null);
+  const handleMenuClick = (menu) => {
+    setActiveMenu((prevMenu) => (prevMenu === menu ? null : menu)); // Toggle the menu
   };
+
+  
 
   return (
     <div>
       <header className="bg-secondarybgcolor shadow-md relative">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
-          <span className="text-2xl font-bold text-primarytextcolor">JOBSEEKER</span>
+          <span className="med:text-2xl font-bold text-primarytextcolor small:text-lg">
+            JOBSEEKER
+          </span>
+
+          {/* Hamburger Icon for Mobiles */}
 
           {/* Navigation Links */}
           <nav
-            className="flex space-x-8 text-primarytextcolor relative"
-            onMouseLeave={handleMouseLeave} // Close popup when mouse leaves nav
+            className={`${
+              isMobileMenuOpen ? "block" : "hidden"
+            } med:flex space-x-8 text-primarytextcolor absolute med:relative top-full left-0 w-full bg-secondarybgcolor med:bg-transparent med:top-auto med:w-auto z-10`}
           >
             <a
               href="#"
-              className="px-3 py-2 hover:text-black"
-              onMouseEnter={() => handleMouseEnter("findTalent")}
+              className="block med:inline-block px-3 py-2 hover:text-black"
+              onClick={() => handleMenuClick("findWork")}
             >
-              Find Talent
+              Find Work
             </a>
 
             <a
               href="#"
-              className="px-3 py-2 hover:text-black"
-              onMouseEnter={() => handleMouseEnter("findWork")}
+              className="block med:inline-block px-3 py-2 hover:text-black"
+              onClick={() => handleMenuClick("findTalent")}
             >
-              Find Work
+              Find Talent
             </a>
           </nav>
 
           {/* Right Actions */}
-          <div className="flex items-center space-x-8">
-            <button className="md:block text-lg text-black hover:text-green-600">
+          <div className="hidden med:flex items-center space-x-8">
+            <button className="text-lg text-black hover:text-green-600">
               Log in
             </button>
-            <button className="bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
-              Sign up
-            </button>
+            <Link to="/signUp">
+              <button className="bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
+                Sign up
+              </button> 
+            </Link>
           </div>
         </div>
 

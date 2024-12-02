@@ -38,10 +38,10 @@ const TextSectionJobGiver = () => {
 
       <div className="flex items-start mt-8">
         <button className="bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
-          Find a Job
+          Find your Employee
         </button>
         <button className=" ml-16 bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
-          Sign up for FREE.
+          Create Your Company for FREE.
         </button>
       </div>
     </>

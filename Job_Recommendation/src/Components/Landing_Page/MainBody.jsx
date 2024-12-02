@@ -5,9 +5,11 @@ import JobSearchImage2 from "../../assets/images/Job_Search_Image_2.png"; // Adj
 import JobSearchImage3 from "../../assets/images/Job_Search_Image_3.png"; // Adjust the path based on your directory structure
 import TextSectionJobSeeker from "./TextSectionJobSeeker";
 import TextSectionJobGiver from "./TextSectionJobGiver";
+import LookingForEmployee from "./LookingForEmployee";
+import LookingForCompanies from "./LookingForCompanies";
 const MainBody = () => {
   const images = [JobSearchImage1, JobSearchImage2, JobSearchImage3];
-  const componentarray = [<TextSectionJobSeeker/>,<TextSectionJobGiver/>];
+  const componentarray = [<TextSectionJobSeeker />, <TextSectionJobGiver />];
 
   const [currentIndex, setcurrentIndex] = React.useState(0);
   const [currentComponentIndex, setcurrentComponentIndex] = React.useState(0);
@@ -20,16 +22,14 @@ const MainBody = () => {
     return () => clearInterval(interval); // Cleanup the interval on component unmount
   }, [images.length]);
 
-  useEffect(()=>
-  {
-    const intervalforComponent = setInterval(()=>
-      {
-        setcurrentComponentIndex((prevIndex)=>(prevIndex === 0)?1:0);
-        console.log(currentIndex);
-      },5000);
+  useEffect(() => {
+    const intervalforComponent = setInterval(() => {
+      setcurrentComponentIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
+      console.log(currentIndex);
+    }, 5000);
 
-    return ()=>clearInterval(intervalforComponent);
-  },[componentarray.length]);
+    return () => clearInterval(intervalforComponent);
+  }, [componentarray.length]);
 
   return (
     <>
@@ -45,10 +45,21 @@ const MainBody = () => {
           </div>
 
           {/* Text Section Rendering */}
-          <div className="w-1/2 pl-4 mt-10 flex-col animate-fade">
+          <div className="w-1/2 pl-4 mt-10 flex-col">
             {componentarray[currentComponentIndex]}
           </div>
           {/* Text Section Rendering ends here */}
+        </div>
+
+        {/* Looking for employee section */}
+        <div className="mt-32 flex flex-col justify-center items-center">
+          <LookingForEmployee />
+        </div>
+
+
+        {/* Looking For Companies */}
+        <div className="mt-32 flex flex-col justify-center items-center">
+          <LookingForCompanies />
         </div>
       </div>
     </>
