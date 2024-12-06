@@ -1,7 +1,6 @@
 import React from 'react'
-import TopMenuBar from '../JobSeeker/JobsSection/TopMenuBar'
-import MainBody from './MainBody'
-
+import MainBody from '../Components/Landing_Page/MainBody'
+import TopMenuBar from '../Components/Landing_Page/TopMenuBar'
 const LandingPage = () => {
   return (
     <div>
