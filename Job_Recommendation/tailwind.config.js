@@ -10,12 +10,20 @@ export default {
     },
     extend: {
       colors: {
-        primary: "#F36259", // Custom dark blue
-        secondary: "#EED8C7", // Custom light gray
-        //accent: "#FB923C", // Custom coral
-        highlight: "black", // Custom blue
-        //success: "#34D399", // Custom green
-        //error: "#EF4444", // Custom red
+        primarybgcolor: "#A5A5A5",
+        secondarybgcolor: "#FFFFFF",
+        primarytextcolor: "#000000",
+
+      },
+      animation: {
+        fade: "fade 3s ease-in-out infinite", // Custom animation
+      },
+      keyframes: {
+        fade: {
+          "0%": { opacity: "0" },  // Start as invisible
+          "70%": { opacity: "1" }, // Fade in
+          "100%": { opacity: "0" }, // Fade out
+        },
       },
     },
   },

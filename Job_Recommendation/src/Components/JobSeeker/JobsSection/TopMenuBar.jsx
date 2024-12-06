@@ -1,47 +1,79 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const TopMenuBar = () => {
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const [isSideBarOpen,setIsSideBarOpen] = useState(false);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
+  };
+
+  const handleMenuClick = (menu) => {
+    setActiveMenu((prevMenu) => (prevMenu === menu ? null : menu)); // Toggle the menu
+  };
+
+  
 
   return (
     <div>
-      
-      <div className="px-4 py-2 flex justify-between items-center fixed z-50 shadow-md bg-primary text-secondary w-full">
-        {/* Logo Section */}
-        <div className="text-xl md:text-2xl font-bold">
-          <a href="/signup">JobSeeker</a>
-        </div>
+      <header className="bg-secondarybgcolor shadow-md relative">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+          {/* Logo */}
+          <span className="med:text-2xl font-bold text-primarytextcolor small:text-lg">
+            JOBSEEKER
+          </span>
 
-        {/* Navigation Links - Small on mobile, larger on desktop */}
-        <nav className="flex space-x-4 md:space-x-8 text-sm md:text-base">
-          <a href="#home" className="hover:text-highlight">
-            Home
-          </a>
-          <a href="#jobs" className="hover:text-highlight">
-            Jobs
-          </a>
-          <a href="#dashboard" className="hover:text-highlight">
-            Dashboard
-          </a>
-          <a href="#profile" className="hover:text-highlight">
-            Profile
-          </a>
-        </nav>
+          {/* Hamburger Icon for Mobiles */}
 
-        {/* Right Section - Profile Avatar */}
-        <div className="flex items-center space-x-3 md:space-x-4">
-          <div className="relative">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="User Avatar"
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white"
-            />
-            <span className="absolute bottom-0 right-0 block w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full border-2 border-blue-800"></span>
+          {/* Navigation Links */}
+          <nav
+            className={`${
+              isMobileMenuOpen ? "block" : "hidden"
+            } med:flex space-x-8 text-primarytextcolor absolute med:relative top-full left-0 w-full bg-secondarybgcolor med:bg-transparent med:top-auto med:w-auto z-10`}
+          >
+            <a
+              href="#"
+              className="block med:inline-block px-3 py-2 hover:text-black"
+              onClick={() => handleMenuClick("findWork")}
+            >
+              Find Work
+            </a>
+
+            <a
+              href="#"
+              className="block med:inline-block px-3 py-2 hover:text-black"
+              onClick={() => handleMenuClick("findTalent")}
+            >
+              Find Talent
+            </a>
+          </nav>
+
+          {/* Right Actions */}
+          <div className="hidden med:flex items-center space-x-8">
+            <button className="text-lg text-black hover:text-green-600">
+              Log in
+            </button>
+            <Link to="/signUp">
+              <button className="bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
+                Sign up
+              </button> 
+            </Link>
           </div>
         </div>
-      </div>
-    
+
+        {/* Popup Menu */}
+        {activeMenu && (
+          <div className="absolute top-full left-0 bg-primarybgcolor shadow-lg w-full">
+            <div className="container mx-auto px-6 py-6">
+              {activeMenu === "findTalent" && <p>Find Talent Content Here</p>}
+              {activeMenu === "findWork" && <p>Find Work Content Here</p>}
+            </div>
+          </div>
+        )}
+      </header>
     </div>
   );
 };
