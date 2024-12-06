@@ -53,9 +53,11 @@ const TopMenuBar = () => {
 
           {/* Right Actions */}
           <div className="hidden med:flex items-center space-x-8">
-            <button className="text-lg text-black hover:text-green-600">
-              Log in
-            </button>
+            <Link to ="/login">
+                <button className="text-lg text-black hover:text-green-600">
+                Log in
+                </button>
+            </Link>
             <Link to="/signUp">
               <button className="bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
                 Sign up
