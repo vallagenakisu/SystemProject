@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const SignUp = () => {
   const [formData, setFormData] = React.useState({
@@ -8,52 +10,67 @@ const SignUp = () => {
     email: "",
     password: "",
     country: "Bangladesh",
+    profileImage: null,
   });
   const [message, setMessage] = React.useState("");
-  
+  const navigate = useNavigate(); //useNavigate hook Initilization
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === "profileImage") {
+      setFormData({ ...formData, [name]: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    
-    try{
-      const response = await axios.post('http://localhost:8000/api/signup',formData);
+
+    // Create a FormData object which will be sent as to the laravel backend
+
+    const data = new FormData();
+    data.append("firstName", formData.firstName);
+    data.append("lastName", formData.lastName);
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    data.append("country", formData.country);
+    if (formData.profileImage) {
+      data.append("profileImage", formData.profileImage);
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/signup",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setMessage(response.data.message);
       console.log(response.data.status);
-    }
-    catch(err){
-      if(err.response && err.response.status === 400){
-        
-      }
-      else
-      {
+
+      // Redirect to the main component after successful registration
+      navigate("/");
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setMessage(err.response.data.message);
+      } else {
         console.log(response.data.status);
         setMessage("Something went wrong. Please try again later.");
       }
     }
-    
   };
   return (
     <>
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold">Sign up to hire talent</h1>
+            <h1 className="text-2xl font-bold">Sign up to get a JOB</h1>
           </div>
-          <div className="flex justify-between gap-4 mb-4">
-            <button className="flex-1 py-2 px-4 border rounded-lg flex items-center justify-center text-gray-700 bg-white shadow hover:bg-gray-50">
-              <i className="fab fa-apple mr-2"></i> Continue with Apple
-            </button>
-            <button className="flex-1 py-2 px-4 border rounded-lg flex items-center justify-center text-white bg-blue-500 hover:bg-blue-600">
-              <i className="fab fa-google mr-2"></i> Continue with Google
-            </button>
-          </div>
-          <div className="text-center text-gray-500 my-4">or</div>
+
           <p>{message}</p>
 
           <form onSubmit={handleSubmit}>
@@ -105,7 +122,16 @@ const SignUp = () => {
               <option value="United States">United States</option>
               <option value="India">India</option>
               <option value="Canada">Canada</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="Switzerland">Switzerland</option>
             </select>
+            <input
+              type="file"
+              name="profileImage"
+              accept="image/*"
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full mb-4"
+            />
             <button
               type="submit"
               className="bg-green-500 text-white py-2 px-4 rounded-lg w-full hover:bg-green-600"
@@ -118,7 +144,7 @@ const SignUp = () => {
               href="/apply-as-talent"
               className="text-green-600 hover:underline"
             >
-              Apply as talent
+              Register Your Company
             </a>
           </div>
         </div>

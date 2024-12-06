@@ -1,19 +1,24 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import TopMenuBar from './Components/JobSeeker/JobsSection/TopMenuBar.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SignUp from "./Components/Common/SignUp.jsx"
+import "./index.css";
 
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
-import SignUp from './Components/Common/SignUp.jsx'
+import LandingPage from "./Components/Landing_Page/LandingPage.jsx";
 
-import MainLayout from './Components/JobSeeker/JobsSection/MainLayout.jsx'
-createRoot(document.getElementById('root')).render(
-  <Router>
-    <TopMenuBar />
-    <Routes>
-      <Route path="/" element={<MainLayout />} />
-      <Route path='/signup' element = {< SignUp />}/>
-    </Routes>
-  </Router>
-  
-)
+const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: LandingPage,
+  },
+  {
+    path: "/signUp",
+    Component : SignUp,
+  },
+]);
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
+);
