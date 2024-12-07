@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 
 
 const SignUp = () => {
@@ -13,7 +13,7 @@ const SignUp = () => {
     profileImage: null,
   });
   const [message, setMessage] = React.useState("");
-  const navigate = useNavigate(); //useNavigate hook Initilization
+ 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,7 +53,7 @@ const SignUp = () => {
       console.log(response.data.status);
 
       // Redirect to the main component after successful registration
-      navigate("/");
+      
     } catch (err) {
       if (err.response && err.response.status === 400) {
         setMessage(err.response.data.message);
