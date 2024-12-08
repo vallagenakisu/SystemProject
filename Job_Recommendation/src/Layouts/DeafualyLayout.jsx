@@ -9,6 +9,7 @@ const DeafualyLayout = () => {
 
   return (
     <div>
+      
       <Outlet/>
     </div>
   )

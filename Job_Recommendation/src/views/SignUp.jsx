@@ -3,8 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
-
-
 const SignUp = () => {
   const {setUser,setToken} = useStateContext();
 
@@ -18,7 +16,7 @@ const SignUp = () => {
     profileImage: null,
   });
   const [message, setMessage] = React.useState("");
-  const navigate = useNavigate(); //useNavigate hook Initilization
+ 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +47,6 @@ const SignUp = () => {
       console.log(response.data);``
       setUser(response.data.user);
       setToken(response.data.token);
-
     })
     .catch((error) => {
       console.log(error.response.data);
