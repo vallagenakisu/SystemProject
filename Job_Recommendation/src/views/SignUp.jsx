@@ -1,14 +1,19 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
+import { useStateContext } from "../contexts/ContextProvider";
 
 
 const SignUp = () => {
+  const {setUser,setToken} = useStateContext();
+
   const [formData, setFormData] = React.useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    confirm_password: "",
     country: "Bangladesh",
     profileImage: null,
   });
@@ -30,39 +35,28 @@ const SignUp = () => {
     // Create a FormData object which will be sent as to the laravel backend
 
     const data = new FormData();
-    data.append("firstName", formData.firstName);
-    data.append("lastName", formData.lastName);
+    data.append("name", formData.firstName+formData.lastName);
     data.append("email", formData.email);
     data.append("password", formData.password);
+    data.append("password", formData.confirm_password);
     data.append("country", formData.country);
+    console.log(data);
     if (formData.profileImage) {
       data.append("profileImage", formData.profileImage);
     }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/signup",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setMessage(response.data.message);
-      console.log(response.data.status);
+    axiosClient.post("/signup", data).then((response) => {
+      console.log(response.data);``
+      setUser(response.data.user);
+      setToken(response.data.token);
 
-      // Redirect to the main component after successful registration
-      navigate("/");
-    } catch (err) {
-      if (err.response && err.response.status === 400) {
-        setMessage(err.response.data.message);
-      } else {
-        console.log(response.data.status);
-        setMessage("Something went wrong. Please try again later.");
-      }
-    }
-  };
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+      setMessage(error.response.data.message);
+    });
+
+};
   return (
     <>
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -108,6 +102,15 @@ const SignUp = () => {
               name="password"
               placeholder="Password (8 or more characters)"
               value={formData.password}
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full mb-4"
+              required
+            />
+            <input
+              type="password"
+              name="confirm_password"
+              placeholder="Confirm Password"
+              value={formData.confirm_password}
               onChange={handleChange}
               className="border rounded-lg p-2 w-full mb-4"
               required
