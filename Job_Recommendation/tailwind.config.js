@@ -10,10 +10,17 @@ export default {
     },
     extend: {
       colors: {
-        primarybgcolor: "#A5A5A5",
+        sidebarbgcolor:"#ffffff",
+        dashboardbgcolor:"#f5f5f5",
+        buttonvolor:"#ffd55a",
+        buttonhovercolor: "#f4af1b",
+        primarybgcolor: "#ebebef",
         secondarybgcolor: "#FFFFFF",
         primarytextcolor: "#000000",
 
+      },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
       },
       animation: {
         fade: "fade 3s ease-in-out infinite", // Custom animation

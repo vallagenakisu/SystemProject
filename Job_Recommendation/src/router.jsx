@@ -4,17 +4,30 @@ import Login from './views/Login';
 import SignUp from './views/SignUp';
 import GuestLayout from './Layouts/GuestLayout';
 import LandingPage from './views/LandingPage';
-import Dashboard from './views/Dashboard';
-
+import EmployeeDashBoard from './views/EmployeeDashBoard';
+import DashProfile from './Components/EmployeeDashBoard/DashProfile';
+import DashNotofications from './Components/EmployeeDashBoard/DashNotofications';
 const router = createBrowserRouter([
     {
         path : '/' ,
         element: <DeafualyLayout />,
         children : [
             {
-                path : '/dashboard' ,
-                element : <Dashboard/>
-            }
+                path : 'dashboard' ,
+                element : <EmployeeDashBoard/>,
+                children:[
+                    {
+                        path : 'dashprofile' ,
+                        element : <DashProfile/>
+                    },
+                    {
+                        path: 'dashnotifications',
+                        element : <DashNotofications/>
+
+                    }
+                ]
+            },
+            
         ]
     }
     ,
