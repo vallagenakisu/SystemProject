@@ -83,7 +83,7 @@ const Widgets = () => {
               </div>
             </div>
             {/* To Do card */}
-            <div className="bg-white mt-4 px-4 py-4 rounded-lg h-96">
+            <div className="bg-white mt-4 px-4 py-4 rounded-lg h-96 shadow-lg shadow-black border border-primaryfontcolor">
               <div className="flex justify-between items-center gap-5">
                 <div className="border-primaryfontcolor flex-grow">
                   <input

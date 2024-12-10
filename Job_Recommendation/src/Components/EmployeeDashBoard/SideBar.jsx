@@ -41,7 +41,7 @@ const SideBar = () => {
     },
   ];
 
-  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeMenu, setActiveMenu] = useState("Widgets");
 
   return (
     <div className="bg-sidebarbgcolor w-52 h-screen m-4 top-0 left-0 rounded-lg">
