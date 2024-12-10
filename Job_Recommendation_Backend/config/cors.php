@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*'], // Allow API routes
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://localhost:5173'], // React's domain
+    'allowed_origins' => ['http://localhost:5174'], // React's domain
     'allowed_headers' => ['*'],
     'supports_credentials' => false,
 
