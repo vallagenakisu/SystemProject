@@ -1,82 +1,98 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBriefcase,
-  faBell,
-  faListUl,
-  faCalendar,
-  faGlobe,
-  faChartLine,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
-
+import { faGears } from "@fortawesome/free-solid-svg-icons";
+import { faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
+import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 const SideBar = () => {
-  const [activeLink, setActiveLink] = useState(0);
-  const handleActiveLinkk = (index) => {
-    setActiveLink(index);
-  };
-
-  const SIDEBAR_LINKS = [
-    { id: 1, icon: faBriefcase, name: "Profile", path: "dashprofile" },
+  const SIDEBAR_MENU_ITEMS = [
     {
-      id: 2,
-      icon: faBell,
-      name: "Messages",
-      path: "dashnotifications",
+      title: "Widgets",
+      icon: faGears,
+      link: "widgets",
     },
     {
-      id: 3,
-      icon: faListUl,
-      name: "Jobs",
-      path: "dashjobs",
+      title: "Tasks",
+      icon: faListCheck,
+      link: "tasks",
     },
     {
-      id: 4,
-      icon: faCalendar,
-      name: "Schedule",
-      path: "dashschedule",
+      title: "Calendar",
+      icon: faCalendarDays,
+      link: "calendar",
     },
     {
-      id: 5,
-      icon: faGlobe,
-      name: "Connections",
-      path: "dashconnections",
+      title: "Connections",
+      icon: faUserFriends,
+      link: "connections",
     },
     {
-      id: 6,
+      title: "Analytics",
       icon: faChartLine,
-      name: "Analytics",
-      path: "dashanalytics",
+      link: "analytics",
+    },
+    {
+      title: "Logout",
+      icon: faArrowRightFromBracket,
+      link: "logout",
     },
   ];
 
+  const [activeMenu, setActiveMenu] = useState("Widgets");
+
   return (
-    <div className="w-16 med:w-56 fixed left-0 top-0 z-10 h-screen border-r pt-8 px-10 bg-white">
-      {/* // Sidebar Header */}
-      <div className="w-28 hidden text-lg med:flex">Dashboard</div>
-      {/* // Navigation Links */}
-      <ul className="mt-10 space-y-6">
-        {SIDEBAR_LINKS.map((link, index) => (
-          <li
-          key={index}
-          className={`w-full font-medium rounded-md py-2 px-5 hover:bg-gray-100 hover:text-indigo-500 ${
-            activeLink === index ? "bg-gray-100 text-indigo-500" : ""
-          }`}
-        >
-            <Link
-              to={link.path}
-              className={"flex items-center med:space-x-8 med:justify-start"}
-              onClick={()=>handleActiveLinkk(index)}
-            >
-              <FontAwesomeIcon icon={link.icon} />
-              <span className="text-sm text-gray-500 hidden med:flex">
-                {link.name}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="bg-sidebarbgcolor w-52 h-screen m-4 top-0 left-0 rounded-lg">
+      <div className="flex flex-col px-4 ">
+        {/* Welcome Message of Dashboard */}
+        <div className="flex flex-col justify-center items-center mt-6 ">
+          <span className="text-black font-extralight text-center">
+            Welcome to
+          </span>
+          <h1 className="text-primaryfontcolor text-xl font-extrabold tracking-widest  text-center">
+            Dashboard
+          </h1>
+        </div>
+
+        {/* Menu of Sidebar */}
+        <div className="mt-14 ">
+          <span className="text-gray-500 font-extralight tracking-wide ml-4">
+            Menu
+          </span>
+          <div className="ml-2">
+            {SIDEBAR_MENU_ITEMS.map((item, index) => (
+             <div
+             key={index}
+             className="flex items-center space-x-4 mt-4 py-4 cursor-pointer group"
+             onClick={() => setActiveMenu(item.title)}
+           >
+             <FontAwesomeIcon
+               icon={item.icon}
+               className={`transition-colors duration-300 ${
+                 activeMenu === item.title
+                   ? "text-primaryfontcolor"
+                   : "text-gray-500 group-hover:text-primaryfontcolor"
+               }`}
+             />
+             <span
+               className={`transition-all duration-300 ${
+                 activeMenu === item.title
+                   ? "text-primaryfontcolor font-bold"
+                   : "text-gray-500 group-hover:font-bold group-hover:text-black group-hover:tracking-widest transform group-hover:scale-105"
+               }`}
+             >
+              <Link to={item.link}>{item.title}</Link>
+               
+             </span>
+           </div>
+           
+            
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

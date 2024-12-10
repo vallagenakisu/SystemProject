@@ -8,18 +8,15 @@ const EmployeeDashBoard = () => {
     const { user, setUser}  =useStateContext();
 
   return (
-    <div className="flex flex-row font-roboto">
+    <div className="flex flex-row font-roboto bg-white overflow-hidden">
       <div>
         <SideBar />
       </div>
-      <div className="w-full ml-32 med:ml-56">
-        <div className="bg-dashboardbgcolor">
-          <Header />
-        </div>
-        <div>
-          <Outlet />
-        </div>
+      <div className="flex flex-col">
+        <Header />
+        <Outlet />
       </div>
+      
     </div>
   );
 };
