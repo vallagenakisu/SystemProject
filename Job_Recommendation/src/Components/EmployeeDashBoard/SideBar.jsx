@@ -7,7 +7,33 @@ import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useStateContext } from "../../contexts/ContextProvider";
+import axiosClient from "../../axios-client";
+
 const SideBar = () => {
+  const { user, token, setUser, setToken } = useStateContext();
+  const onLogout = () => {
+    // console.log("logout");
+    axiosClient
+      .post(
+        "/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error(error.response?.data);
+      });
+  };
   const SIDEBAR_MENU_ITEMS = [
     {
       title: "Widgets",
@@ -34,11 +60,11 @@ const SideBar = () => {
       icon: faChartLine,
       link: "analytics",
     },
-    {
-      title: "Logout",
-      icon: faArrowRightFromBracket,
-      link: "logout",
-    },
+    // {
+    //   title: "Logout",
+    //   icon: faArrowRightFromBracket,
+    //   link: "logout",
+    // },
   ];
 
   const [activeMenu, setActiveMenu] = useState("Widgets");
@@ -63,33 +89,42 @@ const SideBar = () => {
           </span>
           <div className="ml-2">
             {SIDEBAR_MENU_ITEMS.map((item, index) => (
-             <div
-             key={index}
-             className="flex items-center space-x-4 mt-4 py-4 cursor-pointer group"
-             onClick={() => setActiveMenu(item.title)}
-           >
-             <FontAwesomeIcon
-               icon={item.icon}
-               className={`transition-colors duration-300 ${
-                 activeMenu === item.title
-                   ? "text-primaryfontcolor"
-                   : "text-gray-500 group-hover:text-primaryfontcolor"
-               }`}
-             />
-             <span
-               className={`transition-all duration-300 ${
-                 activeMenu === item.title
-                   ? "text-primaryfontcolor font-bold"
-                   : "text-gray-500 group-hover:font-bold group-hover:text-black group-hover:tracking-widest transform group-hover:scale-105"
-               }`}
-             >
-              <Link to={item.link}>{item.title}</Link>
-               
-             </span>
-           </div>
-           
-            
+              <div
+                key={index}
+                className="flex items-center space-x-4 mt-4 py-4 cursor-pointer group"
+                onClick={() => setActiveMenu(item.title)}
+              >
+                <FontAwesomeIcon
+                  icon={item.icon}
+                  className={`transition-colors duration-300 ${
+                    activeMenu === item.title
+                      ? "text-primaryfontcolor"
+                      : "text-gray-500 group-hover:text-primaryfontcolor"
+                  }`}
+                />
+                <span
+                  className={`transition-all duration-300 ${
+                    activeMenu === item.title
+                      ? "text-primaryfontcolor font-bold"
+                      : "text-gray-500 group-hover:font-bold group-hover:text-black group-hover:tracking-widest transform group-hover:scale-105"
+                  }`}
+                >
+                  <Link to={item.link}>{item.title}</Link>
+                </span>
+              </div>
             ))}
+            <div
+              className="flex items-center space-x-4 mt-4 py-4 cursor-pointer group"
+              onClick={onLogout}
+            >
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                className="text-gray-500 group-hover:text-primaryfontcolor"
+              />
+              <span className="text-gray-500 group-hover:font-bold group-hover:text-black group-hover:tracking-widest transition-all ease-in-out duration-300 ">
+                LOGOUT
+              </span>
+            </div>
           </div>
         </div>
       </div>
