@@ -10,14 +10,17 @@ export default {
     },
     extend: {
       colors: {
-        sidebarbgcolor:"#ffffff",
+        sidebarbgcolor:"#f7f7f7",
         dashboardbgcolor:"#f5f5f5",
-        buttonvolor:"#ffd55a",
+        primaryfontcolor:"#175739",
         buttonhovercolor: "#f4af1b",
         primarybgcolor: "#ebebef",
         secondarybgcolor: "#FFFFFF",
         primarytextcolor: "#000000",
 
+      },
+      backgroundImage:{
+        gradientcolor : "linear-gradient(301deg, rgba(2,0,36,1) 0%, rgba(23,87,57,1) 0%, rgba(23,87,57,1) 48%, rgba(34,129,31,1) 100%)",
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],

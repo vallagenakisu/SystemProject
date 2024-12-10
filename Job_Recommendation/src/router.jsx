@@ -7,6 +7,7 @@ import LandingPage from './views/LandingPage';
 import EmployeeDashBoard from './views/EmployeeDashBoard';
 import DashProfile from './Components/EmployeeDashBoard/DashProfile';
 import DashNotofications from './Components/EmployeeDashBoard/DashNotofications';
+import Widgets from './Components/EmployeeDashBoard/Widgets';
 const router = createBrowserRouter([
     {
         path : '/' ,
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
                 path : 'dashboard' ,
                 element : <EmployeeDashBoard/>,
                 children:[
+                    {
+                        path: 'widgets' ,
+                        element : <Widgets/>
+                    },
                     {
                         path : 'dashprofile' ,
                         element : <DashProfile/>
