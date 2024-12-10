@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
@@ -55,9 +55,35 @@ const SignUp = () => {
   //   });
 
   // };
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+  const countryRef = useRef();
+  const profileImageRef = useRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(firstNameRef.current.value);
+    console.log(lastNameRef.current.value);
+    console.log(emailRef.current.value);
+    console.log(passwordRef.current.value);
+    console.log(confirmPasswordRef.current.value);
+    console.log(countryRef.current.value);
+    const selectedImage = profileImageRef.current.files[0];
+    if(selectedImage)
+    {
+      console.log(selectedImage.name);
+    }
+    else
+    {
+      console.log("No Image Selected");
+    }
+  };
   return (
     <>
-      <div className="bg-sidebarbgcolor h-screen overflow-hidden">
+      <div className="bg-sidebarbgcolor h-screen ">
         <div className="flex flex-row gap-10 justify-between w-full">
           <div className="flex-[1.5]">
             <div className="bg-gradientcolor rounded-lg overflow-hidden h-screen">
@@ -82,63 +108,74 @@ const SignUp = () => {
                   LOG IN
                 </div>
               </div>
-              <div className="mt-20">
-                <div className="flex flex-row gap-10">
-                  <input
-                    type="text"
-                    placeholder="FirstName..."
-                    className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn"
-                  />
-                  <input
-                    type="text"
-                    placeholder="LastName..."
-                    className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn"
-                  />
+              <form onSubmit={handleSubmit}>
+                <div className="mt-20">
+                  <div className="flex flex-row gap-10">
+                    <input
+                      ref={firstNameRef}
+                      type="text"
+                      placeholder="FirstName..."
+                      className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn"
+                    />
+                    <input
+                      ref={lastNameRef}
+                      type="text"
+                      placeholder="LastName..."
+                      className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      ref={emailRef}
+                      type="email"
+                      placeholder="Enter Your Email..."
+                      className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor mt-5 animate-fadeIn"
+                    />
+                  </div>
+                  <div className="flex flex-row gap-10">
+                    <input
+                      ref={passwordRef}
+                      type="password"
+                      placeholder="Enter Your Password..."
+                      className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor mt-5 animate-fadeIn"
+                    />
+                    <input
+                      ref={confirmPasswordRef}
+                      type="password"
+                      placeholder="Confirm Password..."
+                      className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor mt-5 animate-fadeIn"
+                    />
+                  </div>
+                  <div className="mt-5">
+                    <select
+                      className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn"
+                      ref={countryRef}
+                    >
+                      <option value="" disabled selected>
+                        Select Your Country...
+                      </option>
+                      <option value="usa">United States</option>
+                      <option value="uk">United Kingdom</option>
+                      <option value="canada">Canada</option>
+                      <option value="australia">Australia</option>
+                      <option value="india">India</option>
+                    </select>
+                  </div>
+                  <div className="mt-5 px-20 items-center">
+                    <input
+                      ref={profileImageRef}
+                      type="file"
+                      className="px-3 py-2 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Enter Your Email..."
-                    className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor mt-5 animate-fadeIn"
-                  />
-                </div>
-                <div className="flex flex-row gap-10">
-                  <input
-                    type="password"
-                    placeholder="Enter Your Password..."
-                    className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor mt-5 animate-fadeIn"
-                  />
-                  <input
-                    type="password"
-                    placeholder="Confirm Password..."
-                    className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor mt-5 animate-fadeIn"
-                  />
-                </div>
-                <div className="mt-5">
-                  <select className="px-3 h-12 w-full rounded-lg border border-primaryfontcolor tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn">
-                    <option value="" disabled selected>
-                      Select Your Country...
-                    </option>
-                    <option value="usa">United States</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="canada">Canada</option>
-                    <option value="australia">Australia</option>
-                    <option value="india">India</option>
-                  </select>
-                </div>
-                <div className="mt-5 px-20 items-center">
-                  <input
-                    type="file"
-                    className="px-3 py-2 h-12 w-full rounded-lg border border-primaryfontcolor  tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor animate-fadeIn"
-                  />
-                </div>
-              </div>
 
-              <div className="mt-10 px-32">
-                <button className="w-full h-12 rounded-lg bg-primaryfontcolor text-white tracking-widest animate-fadeIn hover:bg-white hover:text-black hover:border hover:border-black transition-all duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1">
-                  SIGN UP
-                </button>
-              </div>
+                <div className="mt-10 px-32">
+                  <button className="w-full h-12 rounded-lg bg-primaryfontcolor text-white tracking-widest animate-fadeIn hover:bg-white hover:text-black hover:border hover:border-black transition-all duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1">
+                    SIGN UP
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
