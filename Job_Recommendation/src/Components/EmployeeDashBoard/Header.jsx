@@ -1,7 +1,26 @@
 import React from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import axiosClient from './../../axios-client';
+import { useStateContext } from "../../contexts/ContextProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Header = () => {
+  const {user , token ,setUser , setToken} = useStateContext();
+  const onLogout = () => {
+    axiosClient.post('/logout', {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem("token");
+      window.location.href = '/login';
+    }).catch((error) => {
+      console.error(error.response?.data);
+    });
+  };
+  
+
   return (
     <div className="w-full h-16 py-8 overflow-hidden mx-12 my-4 bg-sidebarbgcolor rounded-lg flex flex-row gap-96 justify-center items-center">
       {/* Search Bar */}
@@ -35,6 +54,9 @@ const Header = () => {
           />
           
         </div>
+      </div>
+      <div className="p-2 bg-black text-white rounded-lg cursor-pointer " >
+        <button onClick={onLogout}  >Logout</button>
       </div>
     </div>
   );

@@ -1,8 +1,27 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import axiosClient from "../../axios-client";
+import { useStateContext } from "../../contexts/ContextProvider";
+
+
 
 const DashProfile = () => {
-  const user = {
-    name: "John Doe",
+  const {user,setUser,setToken,token} =useStateContext();
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    axiosClient.get('/user', {
+      headers: {
+        Authorization: `Bearer ${token}`  // Replace `yourToken` with the actual token
+    }
+    }).then((response) => {
+      setUser(response.data.user);
+    }).catch((error) => {
+      console.log(error.response.data);
+    });
+  }, []);
+
+  const users = {
+    name: user.name,
     bio: "A passionate software engineer and lifelong learner.",
     image: "https://via.placeholder.com/150",
   };
@@ -48,20 +67,20 @@ const DashProfile = () => {
 
   return (
     <div className="flex flex-col items-center justify-start h-full bg-dashboardbgcolor m-4 pb-10 rounded-lg p-6">
-      {/* User Image */}
+      {/* users Image */}
       <img
-        src={user.image}
-        alt="User Profile"
+        src={users.image}
+        alt="users Profile"
         className="w-40 h-40 rounded-full shadow-lg mb-4 mt-10"
       />
 
-      {/* User Name */}
+      {/* users Name */}
       <h2 className="text-2xl font-semibold text-gray-800 mb-2 mt-4">
-        {user.name}
+        {users.name}
       </h2>
 
-      {/* User Bio */}
-      <p className="text-gray-600 text-center max-w-md mt-5 mb-6">{user.bio}</p>
+      {/* users Bio */}
+      <p className="text-gray-600 text-center max-w-md mt-5 mb-6">{users.bio}</p>
 
       {/* Skills Section */}
       <div className="w-full mt-6">
