@@ -1,10 +1,22 @@
-import React from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
+import React, { useEffect, useState } from "react";
+import axiosClient from "../../axios-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useStateContext } from "../../contexts/ContextProvider";
 const Header = () => {
-  
-  
+  const {user,setUser,setToken,token} =useStateContext();
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    axiosClient.get('/user', {
+      headers: {
+        Authorization: `Bearer ${token}`  // Replace `yourToken` with the actual token
+    }
+    }).then((response) => {
+      setUser(response.data.user);
+    }).catch((error) => {
+      console.log(error.response.data);
+    });
+  }, []);
 
   return (
     <div className="w-full h-16 py-8 overflow-hidden mx-12 my-4 bg-sidebarbgcolor rounded-lg flex flex-row gap-96 justify-center items-center">
@@ -24,11 +36,8 @@ const Header = () => {
       <div className="gap-16 flex flex-row justify-center items-center">
         <div className="justify-center items-center">
           <h1 className="text-primaryfontcolor font-semibold text-lg text-center">
-             User
+             {user.name}
           </h1>
-          <p className="text-primaryfontcolor font-light text-sm text-center">
-            User's Role
-          </p>
         </div>
         <div className="">
           {/* Users image placeholder */}

@@ -5,7 +5,7 @@ import axiosClient from '../axios-client';
 const DeafualyLayout = () => {
   const{user , token,setUser} =   useStateContext();
   if(!token){
-    return <Navigate to = "/login" />
+    return <Navigate to = "/landing" />
   }
 //   useEffect(() => {
 //     // Fetch user data when the component mounts
