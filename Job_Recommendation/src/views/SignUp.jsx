@@ -1,60 +1,10 @@
 import React, { useRef } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
-// import { LogoImage } from "";
+
 const SignUp = () => {
-  // const {setUser,setToken} = useStateContext();
+  const { setUser, setToken } = useStateContext();
 
-  // const [formData, setFormData] = React.useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   password: "",
-  //   confirm_password: "",
-  //   country: "Bangladesh",
-  //   profileImage: null,
-  // });
-  // const [message, setMessage] = React.useState("");
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   if (name === "profileImage") {
-  //     setFormData({ ...formData, [name]: e.target.files[0] });
-  //   } else {
-  //     setFormData({ ...formData, [name]: value });
-  //   }
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   // Create a FormData object which will be sent as to the laravel backend
-
-  //   const data = new FormData();
-  //   data.append("name", formData.firstName+formData.lastName);
-  //   data.append("email", formData.email);
-  //   data.append("password", formData.password);
-  //   data.append("password", formData.confirm_password);
-  //   data.append("country", formData.country);
-  //   console.log(data);
-  //   if (formData.profileImage) {
-  //     data.append("profileImage", formData.profileImage);
-  //   }
-
-  //   axiosClient.post("/signup", data).then((response) => {
-  //     console.log(response.data);
-  //     setUser(response.data.user);
-  //     setToken(response.data.token);
-  //     localStorage.setItem("token", response.data.token);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error.response.data);
-  //     setMessage(error.response.data.message);
-  //   });
-
-  // };
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
@@ -63,22 +13,72 @@ const SignUp = () => {
   const countryRef = useRef();
   const profileImageRef = useRef();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(firstNameRef.current.value);
-    console.log(lastNameRef.current.value);
-    console.log(emailRef.current.value);
-    console.log(passwordRef.current.value);
-    console.log(confirmPasswordRef.current.value);
-    console.log(countryRef.current.value);
-    const selectedImage = profileImageRef.current.files[0];
-    if(selectedImage)
-    {
-      console.log(selectedImage.name);
+
+    if (!firstNameRef.current.value) {
+      alert("Please enter your first name");
+      firstNameRef.current.focus();
+      return;
     }
-    else
-    {
-      console.log("No Image Selected");
+    if (!lastNameRef.current.value) {
+      alert("Please enter your last name");
+      lastNameRef.current.focus();
+      return;
+    }
+    if (!emailRef.current.value) {
+      alert("Please enter your email");
+      emailRef.current.focus();
+      return;
+    }
+    if (!passwordRef.current.value) {
+      alert("Please enter your password");
+      passwordRef.current.focus();
+      return;
+    }
+    if (!confirmPasswordRef.current.value) {
+      alert("Please confirm your password");
+      confirmPasswordRef.current.focus();
+      return;
+    }
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      alert("Passwords do not match");
+      confirmPasswordRef.current.focus();
+      return;
+    }
+    if (!countryRef.current.value) {
+      alert("Please select your country");
+      countryRef.current.focus();
+      return;
+    }
+
+    const selectedFile = profileImageRef.current.files[0];
+    // Create a FormData Object that can be sent to the backend or LARAVEL Server
+    const data = new FormData();
+    data.append(
+      "name",
+      firstNameRef.current.value + " " + lastNameRef.current.value
+    );
+    data.append("email", emailRef.current.value);
+    data.append("password", passwordRef.current.value);
+    data.append("confirm_password", confirmPasswordRef.current.value);
+    data.append("country", countryRef.current.value);
+    if (selectedFile) {
+      data.append("profileImage", selectedFile);
+    }
+    try {
+      const response = await axiosClient.post("/signup", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(response.data);
+      setUser(response.data.user);
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
