@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 const Widgets = () => {
   const [events, setEvents] = useState([
     { title: "Meeting", start: new Date().toISOString(), allDay: true },
@@ -68,9 +69,9 @@ const Widgets = () => {
           </div>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 gap-10">
+        <div className="mt-7 grid grid-cols-2 gap-10">
           {/* To Do List of Widgets */}
-          <div className="bg-sidebarbgcolor w-3/4  rounded-xl ">
+          <div className="bg-sidebarbgcolor w-3/4 h-40  rounded-xl ">
             {/* Header Section of To do list */}
             <div className="flex flex-row justify-start items-center gap-4">
               <FontAwesomeIcon
@@ -82,15 +83,16 @@ const Widgets = () => {
               </div>
             </div>
             {/* To Do card */}
-            <div className="bg-white mt-4 px-4 py-4 rounded-lg ">
+            <div className="bg-white mt-4 px-4 py-4 rounded-lg h-96">
               <div className="flex justify-between items-center gap-5">
                 <div className="border-primaryfontcolor flex-grow">
                   <input
                     type="text"
                     placeholder="Add your task..."
-                    className=" w-full h-12 rounded-lg border border-primaryfontcolor  text-center tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor"
+                    className="w-full h-12 rounded-lg border border-primaryfontcolor text-center tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor"
                   />
                 </div>
+
                 <div className="border p-2 rounded-full flex justify-center items-center group hover:bg-gradientcolor transition-all duration-300 transform group-hover:scale-110 group-hover:shadow-lg cursor-pointer">
                   <FontAwesomeIcon
                     icon={faPlus}
@@ -98,12 +100,122 @@ const Widgets = () => {
                   />
                 </div>
               </div>
-              <div className="mt-4">
-                asdasdasdasd
+
+              
+              {/* Scrollable container for the task list */}
+              <div className="mt-8 h-full overflow-y-auto pl-1 pr-2 ">
+                <div className="flex flex-col gap-4">
+                  {/* Task Item 1 */}
+                  <div className="flex flex-row items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faCircleCheck}
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-gradientcolor hover:text-white hover:scale-110 hover:shadow-lg"
+                      title="Complete Task"
+                    />
+                    <div className="tracking-widest flex-grow">
+                      Design the UI of the Dashboard
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      title="Delete Task"
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-red-500 hover:text-white hover:scale-110 hover:shadow-lg"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faCircleCheck}
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-gradientcolor hover:text-white hover:scale-110 hover:shadow-lg"
+                      title="Complete Task"
+                    />
+                    <div className="tracking-widest flex-grow">
+                      Design the UI of the Dashboard
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      title="Delete Task"
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-red-500 hover:text-white hover:scale-110 hover:shadow-lg"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faCircleCheck}
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-gradientcolor hover:text-white hover:scale-110 hover:shadow-lg"
+                      title="Complete Task"
+                    />
+                    <div className="tracking-widest flex-grow">
+                      Design the UI of the Dashboard
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      title="Delete Task"
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-red-500 hover:text-white hover:scale-110 hover:shadow-lg"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faCircleCheck}
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-gradientcolor hover:text-white hover:scale-110 hover:shadow-lg"
+                      title="Complete Task"
+                    />
+                    <div className="tracking-widest flex-grow">
+                      Design the UI of the Dashboard
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      title="Delete Task"
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-red-500 hover:text-white hover:scale-110 hover:shadow-lg"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faCircleCheck}
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-gradientcolor hover:text-white hover:scale-110 hover:shadow-lg"
+                      title="Complete Task"
+                    />
+                    <div className="tracking-widest flex-grow">
+                      Design the UI of the Dashboard
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      title="Delete Task"
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-red-500 hover:text-white hover:scale-110 hover:shadow-lg"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faCircleCheck}
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-gradientcolor hover:text-white hover:scale-110 hover:shadow-lg"
+                      title="Complete Task"
+                    />
+                    <div className="tracking-widest flex-grow">
+                      Design the UI of the Dashboard
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      title="Delete Task"
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-red-500 hover:text-white hover:scale-110 hover:shadow-lg"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <FontAwesomeIcon
+                      icon={faCircleCheck}
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-gradientcolor hover:text-white hover:scale-110 hover:shadow-lg"
+                      title="Complete Task"
+                    />
+                    <div className="tracking-widest flex-grow">
+                      Design the UI of the Dashboard
+                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      title="Delete Task"
+                      className="text-xl font-bold cursor-pointer rounded-full p-2 transition-transform duration-700 ease-in-out hover:bg-red-500 hover:text-white hover:scale-110 hover:shadow-lg"
+                    />
+                  </div>
+
+                  {/* Additional Task Items */}
+                </div>
               </div>
             </div>
-
-            {/* Task List */}
           </div>
 
           {/* Active Connected Users */}
