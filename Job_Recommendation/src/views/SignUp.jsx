@@ -44,9 +44,10 @@ const SignUp = () => {
     }
 
     axiosClient.post("/signup", data).then((response) => {
-      console.log(response.data);``
+      console.log(response.data);
       setUser(response.data.user);
       setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
     })
     .catch((error) => {
       console.log(error.response.data);
