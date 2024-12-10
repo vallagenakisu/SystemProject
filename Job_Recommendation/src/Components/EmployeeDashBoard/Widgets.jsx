@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
+
 const Widgets = () => {
+  const [events, setEvents] = useState([
+    { title: "Meeting", start: new Date().toISOString(), allDay: true },
+  ]);
   return (
     <div className="w-full h-full overflow-hidden ml-12 my-4 px-8 py-8 rounded-lg bg-sidebarbgcolor ">
       <div className="flex flex-col">
@@ -62,8 +66,18 @@ const Widgets = () => {
           </div>
         </div>
 
-        {/* Calendar Section of Widget */}
+       
+        <div className="mt-14 grid grid-cols-2">
+           {/* To Do List of Widgets */}
+           <div>
+            TO DO LIST SECTION
+           </div>
 
+           {/* Active Connected Users */}
+           <div>
+            ACTIVE CONNECTED USERS
+           </div>
+        </div>
         
       </div>
     </div>
