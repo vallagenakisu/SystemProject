@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Widgets = () => {
   const [events, setEvents] = useState([
@@ -66,19 +68,47 @@ const Widgets = () => {
           </div>
         </div>
 
-       
-        <div className="mt-14 grid grid-cols-2">
-           {/* To Do List of Widgets */}
-           <div>
-            TO DO LIST SECTION
-           </div>
+        <div className="mt-14 grid grid-cols-2 gap-10">
+          {/* To Do List of Widgets */}
+          <div className="bg-sidebarbgcolor w-3/4  rounded-xl ">
+            {/* Header Section of To do list */}
+            <div className="flex flex-row justify-start items-center gap-4">
+              <FontAwesomeIcon
+                icon={faListCheck}
+                className="text-xl font-extrabold"
+              />
+              <div className="font-extralight tracking-widest text-sm text-primaryfontcolor">
+                MY TASKLIST
+              </div>
+            </div>
+            {/* To Do card */}
+            <div className="bg-white mt-4 px-4 py-4 rounded-lg ">
+              <div className="flex justify-between items-center gap-5">
+                <div className="border-primaryfontcolor flex-grow">
+                  <input
+                    type="text"
+                    placeholder="Add your task..."
+                    className=" w-full h-12 rounded-lg border border-primaryfontcolor  text-center tracking-widest focus:outline-none focus:ring-2 focus:ring-primaryfontcolor"
+                  />
+                </div>
+                <div className="border p-2 rounded-full flex justify-center items-center group hover:bg-gradientcolor transition-all duration-300 transform group-hover:scale-110 group-hover:shadow-lg cursor-pointer">
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    className="text-primaryfontcolor font-bold group-hover:text-white transition-colors duration-300"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                asdasdasdasd
+              </div>
+            </div>
 
-           {/* Active Connected Users */}
-           <div>
-            ACTIVE CONNECTED USERS
-           </div>
+            {/* Task List */}
+          </div>
+
+          {/* Active Connected Users */}
+          <div>ACTIVE CONNECTED USERS</div>
         </div>
-        
       </div>
     </div>
   );
