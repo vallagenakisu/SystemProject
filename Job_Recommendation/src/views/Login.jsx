@@ -1,37 +1,150 @@
-import React, { useRef } from 'react'
-import axiosClient from '../axios-client';
-import { useStateContext } from '../contexts/ContextProvider';
+import React, { useRef, useState } from "react";
+import { useStateContext } from "../contexts/ContextProvider";
+import axiosClient from "../axios-client";
+
 const Login = () => {
   const email = useRef();
   const pass = useRef();
+  const { setUser, setToken } = useStateContext();
+  const {message,setMesasage} = useState(null);
 
-  const {user, token, setUser,setToken} = useStateContext();
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      email: email.current.value,
-      password: pass.current.value
-    }
-    axiosClient.post('/login', data).then((response) => {
-      console.log(response.data.user);
-      console.log(response.data.token);
-      setToken(response.data.token);
-      setUser(response.data.user);
 
-    }).catch((error) => {
-      console.log(error.response.data);
+    // Reset errors
+    setErrors({
+      email: "",
+      password: "",
     });
-  }
+
+    const emailValue = email.current.value.trim();
+    const passwordValue = pass.current.value.trim();
+
+    if (!emailValue) {
+      setErrors((prev) => ({
+        ...prev,
+        email: "Email is required.",
+      }));
+      email.current.focus();
+      return;
+    }
+
+    if (!passwordValue) {
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password is required.",
+      }));
+      pass.current.focus();
+      return;
+    }
+
+    const data = {
+      email: emailValue,
+      password: passwordValue,
+    };
+
+    axiosClient
+      .post("/login", data)
+      .then((response) => {
+        console.log(response.data.user);
+        console.log(response.data.token);
+        setToken(response.data.token);
+        setUser(response.data.user);
+      })
+      .catch((error) => {
+        setMesasage(error.response.data);
+      });
+  };
 
   return (
-    <div className='flex flex-col justify-center p-5 items-center gap-5  ' >
-      <input ref={email} className='m-1 p-2 rounded-lg'  type="email" placeholder='Enter Your Email' />
-      <input ref={pass} className='m-1 p-2 rounded-lg' type="password" placeholder='Enter Your Password' />
-      <button onClick={onSubmit} className='bg-black text-white p-2 rounded-lg' >Login</button>
-      <button className='bg-black text-white p-2 rounded-lg' >get</button>
-    </div>
-  )
-}
+    <div className="bg-[url('/Images/bgimagelogin.jpg')] bg-cover bg-center sm:bg-contain lg:bg-cover h-screen relative overflow-hidden">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-white bg-opacity-10 z-0"></div>
 
-export default Login
+      {/* Header */}
+      <div className="text-orange-400 px-4 sm:px-6 py-2 font-bold tracking-widest text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl relative z-10">
+        TRACKPROGRESS
+      </div>
+
+      {/* Login Form */}
+      <div className="flex justify-center items-center h-screen relative z-10">
+        <div className="p-4 sm:p-6 md:p-8 lg:p-10 rounded-lg sm:bg-white sm:bg-opacity-60 shadow-lg max-w-xs sm:max-w-md md:max-w-lg">
+          <h2 className="text-orange-500 text-lg sm:text-xl md:text-2xl font-semibold tracking-widest text-center mb-4">
+            Login
+          </h2>
+          {message && (<div className="text-red-500 text-sm">{message}</div>)}
+          <form onSubmit={handleSubmit}>
+            <div className="mt-3">
+              <label
+                htmlFor="email"
+                className="text-white text-sm sm:text-base font-light tracking-widest"
+              >
+                Enter your email
+              </label>
+              <input
+                ref={email}
+                type="text"
+                name="email"
+                placeholder="Email"
+                className={`w-full mt-2 p-2 rounded-lg border-2 ${
+                  errors.email
+                    ? "border-red-500 focus:border-red-500"
+                    : "border-gray-300 focus:border-primaryfontcolor"
+                } focus:ring-primaryfontcolor focus:outline-none`}
+              />
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+              )}
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="password"
+                className="text-white text-sm sm:text-base font-light tracking-widest"
+              >
+                Enter your password
+              </label>
+              <input
+                ref={pass}
+                type="password"
+                name="password"
+                placeholder="Password"
+                className={`w-full mt-2 p-2 rounded-lg border-2 ${
+                  errors.password
+                    ? "border-red-500 focus:border-red-500"
+                    : "border-gray-300 focus:border-primaryfontcolor"
+                } focus:ring-primaryfontcolor focus:outline-none`}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+              )}
+            </div>
+            <div className="mt-6 flex justify-center">
+              <button
+                type="submit"
+                className="w-full sm:w-auto px-6 py-2 bg-primaryfontcolor text-white rounded-lg tracking-widest hover:bg-primaryfontcolor-dark transition"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+
+          <div className="mt-6 flex justify-center gap-4">
+            <h3 className="font-extralight tracking-widest text-white">
+              Don't Have an Account?
+            </h3>
+            <div className="font-bold cursor-pointer hover:text-primaryfontcolor hover:scale-125 ease-in-out duration-300">
+              CREATE
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
