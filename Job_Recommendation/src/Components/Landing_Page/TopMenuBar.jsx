@@ -4,79 +4,24 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const TopMenuBar = () => {
-  const [activeMenu, setActiveMenu] = useState(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
-  };
-
-  const handleMenuClick = (menu) => {
-    setActiveMenu((prevMenu) => (prevMenu === menu ? null : menu)); // Toggle the menu
-  };
-
-  
-
   return (
-    <div>
-      <header className="bg-secondarybgcolor shadow-md relative">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+    <>
+      <div className="py-5 px-16">
+        <div className="flex flex-row flex-wrap justify-start items-center gap-96">
           {/* Logo */}
-          <span className="med:text-2xl font-bold text-primarytextcolor small:text-lg">
-            JOBSEEKER
-          </span>
-
-          {/* Hamburger Icon for Mobiles */}
-
-          {/* Navigation Links */}
-          <nav
-            className={`${
-              isMobileMenuOpen ? "block" : "hidden"
-            } med:flex space-x-8 text-primarytextcolor absolute med:relative top-full left-0 w-full bg-secondarybgcolor med:bg-transparent med:top-auto med:w-auto z-10`}
-          >
-            <a
-              href="#"
-              className="block med:inline-block px-3 py-2 hover:text-black"
-              onClick={() => handleMenuClick("findWork")}
-            >
-              Find Work
-            </a>
-
-            <a
-              href="#"
-              className="block med:inline-block px-3 py-2 hover:text-black"
-              onClick={() => handleMenuClick("findTalent")}
-            >
-              Find Talent
-            </a>
-          </nav>
-
-          {/* Right Actions */}
-          <div className="hidden med:flex items-center space-x-8">
-            <Link to ="/login">
-                <button className="text-lg text-black hover:text-green-600">
-                Log in
-                </button>
-            </Link>
-            <Link to="/signUp">
-              <button className="bg-primarybgcolor text-white px-4 py-2 rounded hover:bg-green-600">
-                Sign up
-              </button> 
-            </Link>
-          </div>
-        </div>
-
-        {/* Popup Menu */}
-        {activeMenu && (
-          <div className="absolute top-full left-0 bg-primarybgcolor shadow-lg w-full">
-            <div className="container mx-auto px-6 py-6">
-              {activeMenu === "findTalent" && <p>Find Talent Content Here</p>}
-              {activeMenu === "findWork" && <p>Find Work Content Here</p>}
+          <div className="w-full sm:w-auto text-center">
+            <div className="font-medium tracking-widest text-2xl text-primaryfontcolor">TRACKPROGRESS</div>
+            <div className="font-bold text-orange-500 text-center text-sm tracking-widest">
+              DREAM BIG
             </div>
           </div>
-        )}
-      </header>
-    </div>
+          {/* Navbar Button */}
+          <div className="hidden sm:block">NAVBAR</div>
+          {/* Login SignUp Button */}
+          <div className="hidden sm:block">LOGIN SIGNUP</div>
+        </div>
+      </div>
+    </>
   );
 };
 

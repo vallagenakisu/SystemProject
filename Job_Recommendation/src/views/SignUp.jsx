@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const { setUser, setToken } = useStateContext();
@@ -61,11 +62,13 @@ const SignUp = () => {
     );
     data.append("email", emailRef.current.value);
     data.append("password", passwordRef.current.value);
-    data.append("confirm_password", confirmPasswordRef.current.value);
-    data.append("country", countryRef.current.value);
+    // data.append("confirm_password", confirmPasswordRef.current.value);
+    // data.append("country", countryRef.current.value);
     if (selectedFile) {
       data.append("profileImage", selectedFile);
     }
+
+    console.log(data);
     try {
       const response = await axiosClient.post("/signup", data, {
         headers: {
@@ -171,6 +174,7 @@ const SignUp = () => {
                 </div>
 
                 <div className="mt-10 px-32">
+                  
                   <button className="w-full h-12 rounded-lg bg-primaryfontcolor text-white tracking-widest animate-fadeIn hover:bg-white hover:text-black hover:border hover:border-black transition-all duration-300 ease-in-out hover:translate-x-1 hover:translate-y-1">
                     SIGN UP
                   </button>

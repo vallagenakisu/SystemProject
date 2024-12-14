@@ -28,7 +28,7 @@ const SideBar = () => {
         setUser(null);
         setToken(null);
         localStorage.removeItem("token");
-        window.location.href = "/login";
+        window.location.href = "/Landing";
       })
       .catch((error) => {
         console.error(error.response?.data);

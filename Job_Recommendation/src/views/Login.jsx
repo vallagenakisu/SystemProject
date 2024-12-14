@@ -150,7 +150,7 @@ const Login = () => {
               Don't Have an Account?
             </h3>
             <Link
-              to="/signup"
+              to="/"
               className="font-bold cursor-pointer hover:text-primaryfontcolor hover:scale-125 ease-in-out duration-300"
             >
               CREATE
