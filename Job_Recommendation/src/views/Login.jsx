@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import { useStateContext } from "../contexts/ContextProvider";
 import axiosClient from "../axios-client";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const email = useRef();
   const pass = useRef();
   const { setUser, setToken } = useStateContext();
-  const {message,setMesasage} = useState(null);
+  const [message, setMessage] = useState("");
 
   const [errors, setErrors] = useState({
     email: "",
@@ -22,8 +23,8 @@ const Login = () => {
       password: "",
     });
 
-    const emailValue = email.current.value.trim();
-    const passwordValue = pass.current.value.trim();
+    const emailValue = email.current.value;
+    const passwordValue = pass.current.value;
 
     if (!emailValue) {
       setErrors((prev) => ({
@@ -47,17 +48,28 @@ const Login = () => {
       email: emailValue,
       password: passwordValue,
     };
+    // console.log(data);
 
     axiosClient
       .post("/login", data)
       .then((response) => {
-        console.log(response.data.user);
-        console.log(response.data.token);
+        // console.log(response);
+        // console.log(response.data.user);
+        // console.log(response.data.token);
         setToken(response.data.token);
         setUser(response.data.user);
       })
       .catch((error) => {
-        setMesasage(error.response.data);
+        if (error.response) {
+          if (error.response.status === 401 || error.response.status === 422) {
+            setMessage( "Invalid Credentials.");
+          } else {
+            setMessage("An unexpected error occurred. Please try again.");
+          }
+        } else {
+          console.error("Network error:", error);
+          setMessage("Unable to connect to the server. Please try again.");
+        }
       });
   };
 
@@ -77,7 +89,7 @@ const Login = () => {
           <h2 className="text-orange-500 text-lg sm:text-xl md:text-2xl font-semibold tracking-widest text-center mb-4">
             Login
           </h2>
-          {message && (<div className="text-red-500 text-sm">{message}</div>)}
+          {message && <div className="text-red-500 text-sm">{message}</div>}
           <form onSubmit={handleSubmit}>
             <div className="mt-3">
               <label
@@ -137,9 +149,12 @@ const Login = () => {
             <h3 className="font-extralight tracking-widest text-white">
               Don't Have an Account?
             </h3>
-            <div className="font-bold cursor-pointer hover:text-primaryfontcolor hover:scale-125 ease-in-out duration-300">
+            <Link
+              to="/signup"
+              className="font-bold cursor-pointer hover:text-primaryfontcolor hover:scale-125 ease-in-out duration-300"
+            >
               CREATE
-            </div>
+            </Link>
           </div>
         </div>
       </div>
