@@ -8,8 +8,14 @@ const LandingPage = () => {
       <div>
         <TopMenuBar />
       </div>
-      <div className="px-4 py-4">
+      <div className="px-4 py-4" id="home">
         <HomeSection />
+      </div>
+      <div className="px-4 py-4" id="features">
+        This is Features Section
+      </div>
+      <div className="px-4 py-4" id="testimonial">
+        This is Testimonials Section
       </div>
     </>
   );

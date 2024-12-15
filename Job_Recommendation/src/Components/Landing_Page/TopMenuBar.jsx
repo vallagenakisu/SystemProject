@@ -1,10 +1,48 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const TopMenuBar = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  // for handling the scroll effect
+  const handleScrollto = (section) => {
+    const targetedelement = document.getElementById(section);
+    if (targetedelement) {
+      targetedelement.scrollIntoView({ behavior: "smooth", block: "start" });
+      console.log("scrolling to", section);
+    }
+    setActiveSection(section);
+    if (isHamburgerOpen) {
+      setIsHamburgerOpen(false);
+    }
+  };
+  // Track the active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "features", "testimonial"];
+      let currentSection = "home";
+
+      sections.forEach((section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentSection = section;
+          }
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // for handling the hamburger toggle
   const handleHamburger = () => {
     setIsHamburgerOpen(!isHamburgerOpen);
     console.log(isHamburgerOpen);
@@ -36,9 +74,14 @@ const TopMenuBar = () => {
           </button>
         </div>
         <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto  lg:items-center lg:w-auto lg:space-x-6">
-          <li>
+          <li onClick={() => handleScrollto("home")}>
             <a
-              class="text-sm text-black  hover:text-primaryfontcolor hover:font-bold hover:scale-150 ease-in-out duration-150"
+              className={`text-sm text-black  hover:text-primaryfontcolor hover:font-bold hover:scale-150 ease-in-out duration-150 
+              ${
+                activeSection === "home"
+                  ? "text-primaryfontcolor font-bold text-xl tracking-widest scale-y-110"
+                  : "text-gray-300"
+              }`}
               href="#"
             >
               Home
@@ -60,9 +103,14 @@ const TopMenuBar = () => {
               />
             </svg>
           </li>
-          <li>
+          <li onClick={() => handleScrollto("features")}>
             <a
-              class="text-sm text-black  hover:text-primaryfontcolor hover:font-bold hover:scale-110 ease-in-out duration-150"
+              className={`text-sm text-black  hover:text-primaryfontcolor hover:font-bold hover:scale-150 ease-in-out duration-150 
+              ${
+                activeSection === "features"
+                  ? "text-primaryfontcolor font-bold text-xl tracking-widest scale-y-110"
+                  : "text-gray-300"
+              }`}
               href="#"
             >
               Features
@@ -84,9 +132,14 @@ const TopMenuBar = () => {
               />
             </svg>
           </li>
-          <li>
+          <li onClick={() => handleScrollto("testimonial")}>
             <a
-              class="text-sm text-black  hover:text-primaryfontcolor hover:font-bold hover:scale-110 ease-in-out duration-150"
+              className={`text-sm text-black  hover:text-primaryfontcolor hover:font-bold hover:scale-150 ease-in-out duration-150 
+              ${
+                activeSection === "testimonial"
+                  ? "text-primaryfontcolor font-bold text-xl tracking-widest scale-y-110"
+                  : "text-gray-300"
+              }`}
               href="#"
             >
               Testimonial
@@ -107,15 +160,13 @@ const TopMenuBar = () => {
         </a>
       </nav>
       {/* Mobile Menu togglebar option */}
-      <div className={`${isHamburgerOpen?"block":"hidden"}`}>
+      <div className={`${isHamburgerOpen ? "block" : "hidden"}`}>
         <div class="navbar-menu relative z-50">
           <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
 
           <nav class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
             <div class="flex items-center mb-8">
-              
-              <button class="navbar-close"
-              onClick={handleHamburger}>
+              <button class="navbar-close" onClick={handleHamburger}>
                 <svg
                   class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500"
                   xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +185,7 @@ const TopMenuBar = () => {
             </div>
             <div>
               <ul>
-                <li class="mb-1">
+                <li class="mb-1" onClick={() => handleScrollto("home")}>
                   <a
                     class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
                     href="#"
@@ -158,7 +209,6 @@ const TopMenuBar = () => {
                     Testimonials
                   </a>
                 </li>
-                
               </ul>
             </div>
             <div class="mt-auto">
@@ -176,7 +226,6 @@ const TopMenuBar = () => {
                   Sign Up
                 </a>
               </div>
-              
             </div>
           </nav>
         </div>
