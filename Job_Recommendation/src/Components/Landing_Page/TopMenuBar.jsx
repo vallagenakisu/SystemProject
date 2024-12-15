@@ -49,7 +49,7 @@ const TopMenuBar = () => {
   };
   return (
     <>
-      <nav class="relative px-4 py-4 flex justify-between items-center bg-white">
+      <nav class="px-4 py-4 flex justify-between items-center bg-white">
         <a class="" href="#">
           <div className="text-xl tracking-widest text-primaryfontcolor">
             TRACKPROGRESS
@@ -193,7 +193,8 @@ const TopMenuBar = () => {
                     Home
                   </a>
                 </li>
-                <li class="mb-1">
+                <li class="mb-1"
+                onClick={()=>handleScrollto("features")}>
                   <a
                     class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
                     href="#"
@@ -201,7 +202,8 @@ const TopMenuBar = () => {
                     Features
                   </a>
                 </li>
-                <li class="mb-1">
+                <li class="mb-1"
+                onClick={()=>handleScrollto("testimonial")}>
                   <a
                     class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
                     href="#"
