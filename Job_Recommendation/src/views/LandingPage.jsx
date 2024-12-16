@@ -4,6 +4,7 @@ import TopMenuBar from "../Components/Landing_Page/TopMenuBar";
 import HomeSection from "../Components/Landing_Page/HomeSection";
 import FeatureSection from "../Components/Landing_Page/FeatureSection";
 import TestimonialSection from "../Components/Landing_Page/TestimonialSection";
+import ContactUsSection from "../Components/Landing_Page/ContactUsSection";
 const LandingPage = () => {
   return (
     <>
@@ -18,6 +19,9 @@ const LandingPage = () => {
       </div>
       <div className="px-4 py-4" id="testimonial">
         <TestimonialSection />
+      </div>
+      <div className="px-4 py-4" id="contact">
+        <ContactUsSection />
       </div>
     </>
   );
