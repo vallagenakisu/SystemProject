@@ -62,7 +62,7 @@ const Login = () => {
       .catch((error) => {
         if (error.response) {
           if (error.response.status === 401 || error.response.status === 422) {
-            setMessage( "Invalid Credentials.");
+            setMessage("Invalid Credentials.");
           } else {
             setMessage("An unexpected error occurred. Please try again.");
           }
@@ -79,9 +79,11 @@ const Login = () => {
       <div className="absolute inset-0 bg-white bg-opacity-10 z-0"></div>
 
       {/* Header */}
-      <div className="text-orange-400 px-4 sm:px-6 py-2 font-bold tracking-widest text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl relative z-10">
-        TRACKPROGRESS
-      </div>
+      <Link to={"/"}>
+        <div className="text-orange-400 px-4 sm:px-6 py-2 font-bold tracking-widest text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl relative z-10">
+          TRACKPROGRESS
+        </div>
+      </Link>
 
       {/* Login Form */}
       <div className="flex justify-center items-center h-screen relative z-10">

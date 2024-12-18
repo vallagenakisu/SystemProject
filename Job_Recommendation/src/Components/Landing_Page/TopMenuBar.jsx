@@ -22,7 +22,7 @@ const TopMenuBar = () => {
   // Track the active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "features", "testimonial","contact"];
+      const sections = ["home", "features", "testimonial", "contact"];
       let currentSection = "home";
 
       sections.forEach((section) => {
@@ -50,14 +50,14 @@ const TopMenuBar = () => {
   return (
     <>
       <nav class="px-4 py-4 flex justify-between items-center bg-white">
-        <a class="" href="#">
+        <Link to="/">
           <div className="text-xl tracking-widest text-primaryfontcolor">
             TRACKPROGRESS
           </div>
           <div className="text-center font-bold tracking-widest text-orange-400 text-sm">
             DREAM BIG
           </div>
-        </a>
+        </Link>
         <div class="lg:hidden">
           <button
             class="navbar-burger flex items-center text-primaryfontcolor p-3"
@@ -175,18 +175,18 @@ const TopMenuBar = () => {
             </a>
           </li>
         </ul>
-        <a
-          class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-orange-400 hover:text-white text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
-          href="#"
+        <Link
+          to="/login"
+          className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-orange-400 hover:text-white text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
         >
           Sign In
-        </a>
-        <a
+        </Link>
+        <Link
+          to="/signup"
           class="hidden lg:inline-block py-2 px-6 bg-primaryfontcolor hover:bg-black text-sm text-white font-bold rounded-xl transition duration-200"
-          href="#"
         >
           Sign up
-        </a>
+        </Link>
       </nav>
       {/* Mobile Menu togglebar option */}
       <div className={`${isHamburgerOpen ? "block" : "hidden"}`}>
@@ -222,8 +222,7 @@ const TopMenuBar = () => {
                     Home
                   </a>
                 </li>
-                <li class="mb-1"
-                onClick={()=>handleScrollto("features")}>
+                <li class="mb-1" onClick={() => handleScrollto("features")}>
                   <a
                     class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
                     href="#"
@@ -231,8 +230,7 @@ const TopMenuBar = () => {
                     Features
                   </a>
                 </li>
-                <li class="mb-1"
-                onClick={()=>handleScrollto("testimonial")}>
+                <li class="mb-1" onClick={() => handleScrollto("testimonial")}>
                   <a
                     class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
                     href="#"
@@ -240,22 +238,31 @@ const TopMenuBar = () => {
                     Testimonials
                   </a>
                 </li>
+                <li class="mb-1"
+                onClick={()=>handleScrollto("contact")}>
+                  <a
+                    class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
+                    href="#"
+                  >
+                    Contact Us
+                  </a>
+                </li>
               </ul>
             </div>
             <div class="mt-auto">
               <div class="pt-6">
-                <a
+                <Link to={"/login"}
                   class="block px-4 py-3 mb-3 cursor-pointer text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl"
-                  href="#"
+                  
                 >
                   Sign in
-                </a>
-                <a
+                </Link>
+                <Link to={"/signup"}
                   class="block px-4 py-3 mb-2  cursor-pointer leading-loose text-xs text-center text-white font-semibold bg-gradientcolor hover:bg-black  rounded-xl"
                   href="#"
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
             </div>
           </nav>

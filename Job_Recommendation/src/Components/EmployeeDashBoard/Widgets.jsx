@@ -10,7 +10,7 @@ const Widgets = () => {
     { title: "Meeting", start: new Date().toISOString(), allDay: true },
   ]);
   return (
-    <div className="w-full h-full overflow-y-scroll no-scrollbar ml-12 my-4 px-8 py-8 rounded-lg bg-sidebarbgcolor ">
+    <div className=" w-full h-full overflow-y-scroll no-scrollbar ml-12 my-4 px-8 py-8 rounded-lg bg-sidebarbgcolor ">
       <div className="flex flex-col">
         {/* Heading Section of Widgtes */}
         <div className="font-semibold tracking-widest text-xl flex flex-col">

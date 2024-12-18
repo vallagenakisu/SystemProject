@@ -8,7 +8,7 @@ import ContactUsSection from "../Components/Landing_Page/ContactUsSection";
 const LandingPage = () => {
   return (
     <>
-      <div className="fixed w-full">
+      <div className="fixed z-50  w-full">
         <TopMenuBar />
       </div>
       <div className="px-4 py-4" id="home">

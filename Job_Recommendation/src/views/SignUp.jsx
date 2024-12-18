@@ -84,7 +84,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Link className="items-center text-center bg-sidebarbgcolor">
+      <Link className="items-center text-center bg-sidebarbgcolor" to={"/"}>
         <div className="text-xl tracking-widest text-primaryfontcolor">
           TRACKPROGRESS
         </div>

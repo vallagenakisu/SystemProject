@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HomeSection = () => {
   return (
-    <div className="bg-black rounded-xl mt-28">
+    <div className="bg-black rounded-xl mt-28 relative">
       <div className="grid grid-cols-1 md:grid-cols-2 text-white items-center py-8 gap-8">
         {/* Text Section */}
         <div className="px-4 sm:px-8 md:px-10 lg:px-20 my-5 md:my-10">
