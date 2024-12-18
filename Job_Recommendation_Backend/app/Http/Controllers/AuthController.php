@@ -13,13 +13,24 @@ class AuthController extends Controller
     public function signup(SignUpRequest $req)
     {
         $data = $req->validated();
+        // First handle file upload if the user uploaded a file
+        $profileImagePath = null;
+        if ($req->hasFile('profileImage')) {
+            $profileImagePath = $req->file('profileImage')->store('profile_images', 'public');
+        }
+
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password'])
+            'password' => bcrypt($data['password']),
+            'country' => $data['country'], // Add country to the user record
+            'profile_image' => $profileImagePath, // Save file path if uploaded
         ]);
+
+        
         $token = $user->createToken('auth_token')->plainTextToken;
-        return response ([
+        return response([
             'user' => $user,
             'token' => $token
         ]);
@@ -28,7 +39,7 @@ class AuthController extends Controller
     {
         $data = $req->validated();
         $credentials = ['email' => $data['email'], 'password' => $data['password']];
-        if(! Auth::attempt($credentials)){
+        if (! Auth::attempt($credentials)) {
             return response(['message' => 'Invalid credentials']);
         }
         /** @var \App\Models\User $user */
@@ -38,7 +49,6 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ]);
-        
     }
     public function logout(Request $request)
     {
@@ -47,14 +57,15 @@ class AuthController extends Controller
             $user->tokens()->delete(); // Revoke all tokens
             return response()->json(['message' => 'Logged out successfully'], 200);
         }
-    
+
         return response()->json(['message' => 'No user logged in'], 400);
     }
-    function get (Request $request){
+    function get(Request $request)
+    {
         /** @var \App\Models\User $user */
         $user = Auth::user();
         return response([
-            'user'=>$user,
+            'user' => $user,
             'info' => $request->user()
         ]);
     }
