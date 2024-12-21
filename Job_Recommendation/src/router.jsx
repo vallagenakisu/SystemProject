@@ -8,6 +8,7 @@ import EmployeeDashBoard from './views/EmployeeDashBoard';
 import DashProfile from './Components/EmployeeDashBoard/DashProfile';
 import DashNotofications from './Components/EmployeeDashBoard/DashNotofications';
 import Widgets from './Components/EmployeeDashBoard/Widgets';
+import FeedPage from './views/FeedPage';
 const router = createBrowserRouter([
     {
         path : '/' ,
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
                         path: 'dashnotifications',
                         element : <DashNotofications/>
 
-                    }
+                    },
+                    // {
+                    //     path:'feed',
+                    //     element: <FeedPage/>
+                    // }
                 ]
             },
             
@@ -52,6 +57,10 @@ const router = createBrowserRouter([
             {
                 path : '/signup' ,
                 element : <SignUp/>
+            },
+            {
+                path:'feed',
+                element: <FeedPage/>
             }
         ]
     }

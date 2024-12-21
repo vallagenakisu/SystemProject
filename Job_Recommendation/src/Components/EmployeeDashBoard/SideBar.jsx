@@ -63,7 +63,7 @@ const SideBar = () => {
     // {
     //   title: "Logout",
     //   icon: faArrowRightFromBracket,
-    //   link: "logout",
+    //   link: "/Landing",
     // },
   ];
 
@@ -138,7 +138,7 @@ const SideBar = () => {
           {SIDEBAR_MENU_ITEMS.map((item, index) => (
             <div
               key={index}
-              className="group relative px-2 cursor-pointer"
+              className="group relative px-1 cursor-pointer"
               onClick={() => setActiveMenu(item.title)}
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-full hover:text-primaryfontcolor">
@@ -149,6 +149,18 @@ const SideBar = () => {
               </span>
             </div>
           ))}
+
+          <div
+            className="group relative px-1 cursor-pointer"
+            onClick={onLogout}
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-full hover:text-primaryfontcolor">
+              <FontAwesomeIcon icon={faArrowRightFromBracket} />
+            </div>
+            <span className="absolute top-12 left-[50%] -translate-x-[50%] z-20 origin-left scale-0 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium shadow-md transition-all duration-300 ease-in-out group-hover:scale-100">
+              Logout
+            </span>
+          </div>
         </div>
       </div>
     </>
