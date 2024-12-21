@@ -8,11 +8,12 @@ import EmployeeDashBoard from './views/EmployeeDashBoard';
 import DashProfile from './Components/EmployeeDashBoard/DashProfile';
 import DashNotofications from './Components/EmployeeDashBoard/DashNotofications';
 import Widgets from './Components/EmployeeDashBoard/Widgets';
-import FeedPage from './views/FeedPage';
+import NewsFeed from './Components/FeedPage/NewsFeed';
+import PostCard from './Components/EmployeeDashBoard/PostCard'
 const router = createBrowserRouter([
     {
         path : '/' ,
-        element: <DeafualyLayout />,
+        element: <DeafualyLayout/>,
         children : [
             {
                 path : 'dashboard' ,
@@ -31,10 +32,16 @@ const router = createBrowserRouter([
                         element : <DashNotofications/>
 
                     },
-                    // {
-                    //     path:'feed',
-                    //     element: <FeedPage/>
-                    // }
+
+                    {
+                        path:'newsfeed',
+                        element:<NewsFeed/>
+                    },
+                    {
+                        path:'postFeed',
+                        element:<PostCard/>
+                    },
+                    
                 ]
             },
             
@@ -57,10 +64,6 @@ const router = createBrowserRouter([
             {
                 path : '/signup' ,
                 element : <SignUp/>
-            },
-            {
-                path:'feed',
-                element: <FeedPage/>
             }
         ]
     }

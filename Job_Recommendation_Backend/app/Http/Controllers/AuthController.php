@@ -28,7 +28,7 @@ class AuthController extends Controller
             'profile_image' => $profileImagePath, // Save file path if uploaded
         ]);
 
-        
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return response([
             'user' => $user,
@@ -62,11 +62,13 @@ class AuthController extends Controller
     }
     function get(Request $request)
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-        return response([
-            'user' => $user,
-            'info' => $request->user()
+        $user = $request->user();
+
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'profile_image' => $user->profile_image ? asset('storage/' . $user->profile_image) : null,
         ]);
     }
 }

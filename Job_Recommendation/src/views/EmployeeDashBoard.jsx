@@ -5,17 +5,19 @@ import Header from "../Components/EmployeeDashBoard/Header";
 import { useStateContext } from "../contexts/ContextProvider";
 import axiosClient from "../axios-client";
 const EmployeeDashBoard = () => {
-    const { user, setUser}  =useStateContext();
-    
+  const { user, setUser } = useStateContext();
 
   return (
-    
-      <div>
-        <SideBar />
+    <>
+      <div className="flex flex-col md:flex-row gap-10">
+        <div>
+          <SideBar />
+        </div>
+        <div className=" flex-1 py-4 justify-center items-center">
+          <Outlet />
+        </div>
       </div>
-      
-      
-    
+    </>
   );
 };
 

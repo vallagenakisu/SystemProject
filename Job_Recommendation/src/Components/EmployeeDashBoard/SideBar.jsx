@@ -6,6 +6,7 @@ import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faBrain } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../../contexts/ContextProvider";
 import axiosClient from "../../axios-client";
@@ -25,6 +26,7 @@ const SideBar = () => {
         }
       )
       .then((res) => {
+        console.log(res);
         setUser(null);
         setToken(null);
         localStorage.removeItem("token");
@@ -51,15 +53,20 @@ const SideBar = () => {
       link: "calendar",
     },
     {
-      title: "Connections",
+      title: "News Feed",
       icon: faUserFriends,
-      link: "connections",
+      link: "newsfeed",
     },
     {
       title: "Analytics",
       icon: faChartLine,
       link: "analytics",
     },
+    {
+      title:"Post your Mind",
+      icon: faBrain,
+      link:"postFeed"
+    }
     // {
     //   title: "Logout",
     //   icon: faArrowRightFromBracket,
@@ -71,7 +78,7 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="hidden md:block bg-sidebarbgcolor w-52 h-screen m-4 top-0 left-0 rounded-lg">
+      <div className="hidden md:block bg-sidebarbgcolor w-52 h-screen m-4 top-0 left-0 rounded-lg fixed">
         <div className="flex flex-col px-4 ">
           {/* Welcome Message of Dashboard */}
           <div className="flex flex-col justify-center items-center mt-6 ">

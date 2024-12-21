@@ -1,9 +1,10 @@
 import React from 'react'
-
+import SocialPostCard from './SocialPostCard'
 const NewsFeed = () => {
   return (
     <div>
-      Hello this is news feed
+      <SocialPostCard/>
+      <SocialPostCard/>
     </div>
   )
 }
