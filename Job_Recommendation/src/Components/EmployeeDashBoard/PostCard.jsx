@@ -5,11 +5,13 @@ import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { faIcons } from "@fortawesome/free-solid-svg-icons";
+import EmojiPicker from "emoji-picker-react";
 const postcard = () => {
   const { user, token, setUser, setToken } = useStateContext();
   const postTextAreaRef = useRef(null);
 
   const [selectedImage, setSelectedImage] = useState(null);
+
   // Handling image input
 
   const handleImageChange = (event) => {
@@ -69,47 +71,62 @@ const postcard = () => {
           {user.name}
         </div>
       </div>
+      <form action="">
+        {/* Textarea Section */}
+        <div className="px-4 pb-4">
+          <label htmlFor="post"></label>
+          <textarea
+            ref={postTextAreaRef}
+            name="post"
+            id="post"
+            cols="50"
+            rows="8"
+            placeholder={`What's on your mind ? ${user.name}`}
+            className="w-full placeholder:text-primaryfontcolor placeholder:text-base sm:placeholder:text-lg md:placeholder:text-xl placeholder:font-thin placeholder:tracking-wide md:tracking-widest text-sm sm:text-base md:text-lg font-roboto outline-none focus:ring-0 resize-none"
+          ></textarea>
+        </div>
 
-      {/* Textarea Section */}
-      <div className="px-4 pb-4">
-        <label htmlFor="post"></label>
-        <textarea
-          ref={postTextAreaRef}
-          name="post"
-          id="post"
-          cols="50"
-          rows="8"
-          placeholder={`What's on your mind ? ${user.name}`}
-          className="w-full placeholder:text-primaryfontcolor placeholder:text-base sm:placeholder:text-lg md:placeholder:text-xl placeholder:font-thin placeholder:tracking-wide md:tracking-widest text-sm sm:text-base md:text-lg font-roboto outline-none focus:ring-0 resize-none"
-        ></textarea>
-      </div>
+        {/* Image add  section */}
 
-      {/* Image add and emoji add section */}
+        <div className="flex flex-row px-4 py-4 gap-10">
+          <div className="text-xl cursor-pointer font-bold ">
+            <label htmlFor="imageUpload">
+              <FontAwesomeIcon
+                icon={faImage}
+                className="hover:text-primaryfontcolor ease-out hover:scale-110 duration-300 transform "
+              />
+            </label>
 
-      <div className="flex flex-row px-4 py-4 gap-10">
-        <div className="text-xl cursor-pointer font-bold ">
-          <label htmlFor="imageUpload">
-            <FontAwesomeIcon
-              icon={faImage}
-              className="hover:text-primaryfontcolor ease-out hover:scale-110 duration-300 transform "
+            <input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
             />
-          </label>
+          </div>
 
-          <input
-            type="file"
-            id="imageUpload"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageChange}
-          />
+          {/* If the image is slected it will be shown here */}
+          {selectedImage && (
+            <div className="px-4 py-4">
+              <img
+                src={selectedImage}
+                alt="Selected"
+                className="w-full h-auto rounded-md"
+              />
+            </div>
+          )}
         </div>
-        <div className="text-xl cursor-pointer font-bold">
-          <FontAwesomeIcon
-            icon={faIcons}
-            className="hover:text-primaryfontcolor ease-out hover:scale-110 duration-300 transform "
-          />
+
+        <div className="flex justify-center items-center p-8">
+          <button
+            type="submit" 
+            className="w-full sm:w-auto px-6 py-2 bg-primaryfontcolor text-white rounded-lg tracking-widest hover:bg-primaryfontcolor-dark transition"
+          >
+            POST
+          </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
