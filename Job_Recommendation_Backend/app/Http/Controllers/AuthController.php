@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FeedPostRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignUpRequest;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,5 +72,21 @@ class AuthController extends Controller
             'email' => $user->email,
             'profile_image' => $user->profile_image ? asset('storage/' . $user->profile_image) : null,
         ]);
+    }
+
+    public function postFeed(FeedPostRequest $feedPostRequest)
+    {
+        $data = $feedPostRequest->validated(); // Validate and capture the data
+        $postImagePath = null;
+
+        if ($feedPostRequest->hasFile('postImage')) {
+            $postImagePath = $feedPostRequest->file('postImage')->store('profile_images', 'public');
+            $data['postImagePath'] = $postImagePath; // Add the image path to the response
+        }
+
+        return response()->json([
+            'message' => 'Data has been successfully received',
+            'data' => $data,
+        ], 200);
     }
 }

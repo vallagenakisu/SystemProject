@@ -8,3 +8,7 @@ Route::middleware('auth:sanctum')->get('/user' , [AuthController::class , 'get']
 Route::middleware('auth:sanctum')->post('/logout' , [AuthController::class,'logout']);
 Route::post('/signup' , [AuthController::class,'signup']);
 Route::post('/login' , [AuthController::class,'login']);
+
+// api endpoint for posting 
+
+Route::post('/feedpost',[AuthController::class, 'postFeed']);

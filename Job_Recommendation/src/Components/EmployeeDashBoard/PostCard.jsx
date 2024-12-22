@@ -4,11 +4,15 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
-import { faIcons } from "@fortawesome/free-solid-svg-icons";
-import EmojiPicker from "emoji-picker-react";
+
 const postcard = () => {
   const { user, token, setUser, setToken } = useStateContext();
-  const postTextAreaRef = useRef(null);
+
+  // Use ref to collect info from different input fields
+  const postTextAreaRef = useRef();
+  const postImageRef = useRef();
+
+
 
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -20,6 +24,48 @@ const postcard = () => {
       const imageUrl = URL.createObjectURL(file); // Create a URL for the selected image
       setSelectedImage(imageUrl);
     }
+  };
+
+
+
+  // Handling Submitting the post
+
+  const handleSubmitPost = async (event) => {
+    event.preventDefault();
+
+    if (!postTextAreaRef.current.value && !postImageRef.current.value) {
+      alert("Posting requires some text or any image");
+      postTextAreaRef.current.focus();
+      postImageRef.current.focus();
+    }
+
+    // Now writing the logic to send the data to the backedn server
+    const selectedImage = postImageRef.current.files[0];
+    const data = new FormData();
+    data.append("postContent",postTextAreaRef.current.value);
+
+    if(selectedImage)
+    {
+      data.append("postImage",selectedImage);
+    }
+
+    // console.log("data is" + postTextAreaRef.current.value + postImageRef.current.value);
+    try
+    {
+      const response = await axiosClient.post('/feedpost',data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response);
+
+    }
+    catch(err)
+    {
+      console.log(err);
+    }
+
   };
 
   useEffect(() => {
@@ -71,7 +117,7 @@ const postcard = () => {
           {user.name}
         </div>
       </div>
-      <form action="">
+      <form onSubmit={handleSubmitPost}>
         {/* Textarea Section */}
         <div className="px-4 pb-4">
           <label htmlFor="post"></label>
@@ -98,6 +144,7 @@ const postcard = () => {
             </label>
 
             <input
+              ref={postImageRef}
               type="file"
               id="imageUpload"
               accept="image/*"
@@ -120,7 +167,7 @@ const postcard = () => {
 
         <div className="flex justify-center items-center p-8">
           <button
-            type="submit" 
+            type="submit"
             className="w-full sm:w-auto px-6 py-2 bg-primaryfontcolor text-white rounded-lg tracking-widest hover:bg-primaryfontcolor-dark transition"
           >
             POST
