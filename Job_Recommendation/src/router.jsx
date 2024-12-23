@@ -9,7 +9,7 @@ import DashProfile from './Components/EmployeeDashBoard/DashProfile';
 import DashNotofications from './Components/EmployeeDashBoard/DashNotofications';
 import Widgets from './Components/EmployeeDashBoard/Widgets';
 import NewsFeed from './Components/FeedPage/NewsFeed';
-import PostCard from './Components/EmployeeDashBoard/PostCard'
+import PostCard from './Components/EmployeeDashBoard/PostCard.jsx'
 const router = createBrowserRouter([
     {
         path : '/' ,

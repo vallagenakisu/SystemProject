@@ -26,9 +26,9 @@ class User extends Authenticatable
         'profile_image',
     ];
 
-    public function post_feed()
+    public function postfeed()
     {
-        return $this->hasMany(post_feed::class);
+        return $this->hasMany(PostFeed::class);
     }
 
     /**

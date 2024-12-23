@@ -15,6 +15,7 @@ class FeedPostRequest extends FormRequest
   {
     return
       [
+        "user_id"=>'required|exists:users,id',
         "postContent" => 'nullable',
         "postImage" => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
       ];

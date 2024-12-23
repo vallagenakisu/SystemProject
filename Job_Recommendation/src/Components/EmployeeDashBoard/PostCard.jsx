@@ -4,14 +4,14 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
-
+import { useNavigate } from "react-router-dom";
 const postcard = () => {
   const { user, token, setUser, setToken } = useStateContext();
 
   // Use ref to collect info from different input fields
   const postTextAreaRef = useRef();
   const postImageRef = useRef();
-
+  const navigate = useNavigate();
 
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -42,6 +42,7 @@ const postcard = () => {
     // Now writing the logic to send the data to the backedn server
     const selectedImage = postImageRef.current.files[0];
     const data = new FormData();
+    data.append("user_id",user.id);
     data.append("postContent",postTextAreaRef.current.value);
 
     if(selectedImage)
@@ -59,6 +60,7 @@ const postcard = () => {
         },
       });
       console.log(response);
+      navigate('/dashboard/newsfeed');
 
     }
     catch(err)
@@ -166,6 +168,7 @@ const postcard = () => {
         </div>
 
         <div className="flex justify-center items-center p-8">
+          
           <button
             type="submit"
             className="w-full sm:w-auto px-6 py-2 bg-primaryfontcolor text-white rounded-lg tracking-widest hover:bg-primaryfontcolor-dark transition"

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FeedPostRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignUpRequest;
+use App\Models\post_feed;
+use App\Models\PostFeed;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -84,9 +86,17 @@ class AuthController extends Controller
             $data['postImagePath'] = $postImagePath; // Add the image path to the response
         }
 
+        $post = PostFeed::create(
+            [
+                'user_id' => $data['user_id'],
+                'postContent' => $data['postContent'],
+                'postImage' => $postImagePath,
+            ]
+        );
+
         return response()->json([
             'message' => 'Data has been successfully received',
-            'data' => $data,
+            'data' => $data['user_id'],
         ], 200);
     }
 }
