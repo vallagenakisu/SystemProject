@@ -30,7 +30,9 @@ class SignUpRequest extends FormRequest
                 Password::min(8)
                 ->letters()
                 ->symbols()
-            ]
+            ],
+            'country' => 'required',
+            'profileImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

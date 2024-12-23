@@ -22,7 +22,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'country',
+        'profile_image',
     ];
+
+    public function post_feed()
+    {
+        return $this->hasMany(post_feed::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
