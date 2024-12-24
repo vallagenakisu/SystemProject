@@ -70,31 +70,31 @@ const postcard = () => {
 
   };
 
-  useEffect(() => {
-    if (token) {
-      axiosClient
-        .get("/user", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          const fetchedUser = response.data;
+  // useEffect(() => {
+  //   if (token) {
+  //     axiosClient
+  //       .get("/user", {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       })
+  //       .then((response) => {
+  //         const fetchedUser = response.data;
 
-          // Only update the user if it's different to avoid infinite re-renders
-          if (JSON.stringify(fetchedUser) !== JSON.stringify(user)) {
-            setUser(fetchedUser); // Save user data in context
-            console.log("User is set:", fetchedUser);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          setToken(null); // Clear token if fetch fails
-        });
-    }
-    // Automatically focusing the textarea when the component is mounted
-    if (postTextAreaRef.current) {
-      postTextAreaRef.current.focus();
-    }
-  }, [token, user, setUser, setToken]); // Dependencies for useEffect
+  //         // Only update the user if it's different to avoid infinite re-renders
+  //         if (JSON.stringify(fetchedUser) !== JSON.stringify(user)) {
+  //           setUser(fetchedUser); // Save user data in context
+  //           console.log("User is set:", fetchedUser);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching user data:", error);
+  //         setToken(null); // Clear token if fetch fails
+  //       });
+  //   }
+  //   // Automatically focusing the textarea when the component is mounted
+  //   if (postTextAreaRef.current) {
+  //     postTextAreaRef.current.focus();
+  //   }
+  // }, [token, user, setUser, setToken]); // Dependencies for useEffect
 
   if (!user) {
     return <p>Loading...</p>; // Show a loading state until user is fetched

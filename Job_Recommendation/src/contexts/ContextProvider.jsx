@@ -15,42 +15,43 @@ export const ContextProvider = ({ children }) => {
     if (token) {
       localStorage.setItem("ACCESS_TOKEN", token);
       // Fetch user data when token is set
-      // axiosClient
-      //   .get("/user", {
-      //     headers: { Authorization: `Bearer ${token}` },
-      //   })
-      //   .then((response) => {
-      //     console.log("response from laravel");
-      //     console.log(response);
-      //     setUser(response.data); // Save user data in context
-      //     // console.log("User is set");
-      //     // console.log(user);
-      //   })
-      //   .catch((error) => {
-      //     // console.error("Error fetching user data:", error);
-      //     setToken(null); // Clear token if fetch fails
-      //   });
+      axiosClient
+        .get("/user", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          console.log("response from laravel");
+          console.log(response.data);
+          setUser(response); // Save user data in context
+           console.log("User is set");
+           console.log(user);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          setToken(null); // Clear token if fetch fails
+        });
     } else {
       localStorage.removeItem("ACCESS_TOKEN");
     }
   };
-  // useEffect(() => {
-  //   if (token) {
-  //     axiosClient
-  //       .get("/user", {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       })
-  //       .then((response) => {
-  //         setUser(response.data);
-  //         console.log("User");
-  //         console.log(user);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching user data:", error);
-  //         setToken(null);
-  //       });
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (token) {
+      axiosClient
+        .get("/user", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          console.log(response);
+          setUser(response.data);
+          console.log("User");
+          console.log(user.name);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          setToken(null);
+        });
+    }
+  }, [token]);
   return (
     <StateContext.Provider value={{ user, token, setUser, setToken }}>
       {children}
