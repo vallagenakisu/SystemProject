@@ -99,4 +99,13 @@ class AuthController extends Controller
             'data' => $data['user_id'],
         ], 200);
     }
+
+
+    public function newsFeed()
+    {
+        $posts = PostFeed::with('user:id,name')->select('postContent', 'postImage')->get();
+
+    
+        return response()->json($posts);
+    }
 }

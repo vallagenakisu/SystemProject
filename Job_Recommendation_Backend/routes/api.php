@@ -12,3 +12,4 @@ Route::post('/login' , [AuthController::class,'login']);
 // api endpoint for posting 
 
 Route::post('/feedpost',[AuthController::class, 'postFeed']);
+Route::get('/newsFeed',[AuthController::class,'newsFeed']);

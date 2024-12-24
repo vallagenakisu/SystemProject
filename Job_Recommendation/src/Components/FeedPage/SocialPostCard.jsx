@@ -1,13 +1,13 @@
 import React from "react";
 
 const SocialPostCard = () => {
-  const [isLiked, setIsLiked] = React.useState(false);
-  const [likeCount, setLikeCount] = React.useState(42);
+  // const [isLiked, setIsLiked] = React.useState(false);
+  // const [likeCount, setLikeCount] = React.useState(42);
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-    setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
-  };
+  // const handleLike = () => {
+  //   setIsLiked(!isLiked);
+  //   setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+  // };
 
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
@@ -52,14 +52,14 @@ const SocialPostCard = () => {
       {/* Engagement Stats */}
       <div className="px-4 py-2 border-b border-gray-100">
         <div className="flex justify-between text-sm text-gray-500">
-          <span>{likeCount} likes</span>
-          <span>12 comments • 3 shares</span>
+          <span> likes</span>
+          
         </div>
       </div>
 
       {/* Action Buttons */}
       <div className="px-4 py-2 flex justify-between">
-        <button
+        {/* <button
           onClick={handleLike}
           className={`flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors ${
             isLiked ? "text-blue-600" : "text-gray-600"
@@ -67,17 +67,9 @@ const SocialPostCard = () => {
         >
           <i className={`fas fa-heart ${isLiked ? "text-blue-600" : ""}`}></i>
           <span>Like</span>
-        </button>
+        </button> */}
 
-        <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600">
-          <i className="fas fa-comment"></i>
-          <span>Comment</span>
-        </button>
-
-        <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600">
-          <i className="fas fa-share"></i>
-          <span>Share</span>
-        </button>
+        
       </div>
     </div>
   );
