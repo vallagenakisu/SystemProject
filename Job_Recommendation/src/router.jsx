@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         element: <DeafualyLayout/>,
         children : [
             {
-                path : 'dashboard' ,
+                path : '/' ,
                 element : <EmployeeDashBoard/>,
                 children:[
                     {
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         element: <GuestLayout/> ,
         children : [
             {
-                path : '/Landing' ,
+                path : '/landing' ,
                 element : <LandingPage/>
             }
             ,
