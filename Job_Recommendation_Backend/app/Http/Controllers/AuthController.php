@@ -103,7 +103,7 @@ class AuthController extends Controller
 
     public function newsFeed()
     {
-        $posts = PostFeed::with('user:id,name')->select('postContent', 'postImage')->get();
+        $posts = PostFeed::with('user:id,name,profile_image')->select('user_id','postContent', 'postImage')->get();
 
     
         return response()->json($posts);

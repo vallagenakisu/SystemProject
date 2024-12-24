@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 const postcard = () => {
+  
   const { user, token, setUser, setToken } = useStateContext();
 
   // Use ref to collect info from different input fields
@@ -37,6 +38,7 @@ const postcard = () => {
       alert("Posting requires some text or any image");
       postTextAreaRef.current.focus();
       postImageRef.current.focus();
+      return;
     }
 
     // Now writing the logic to send the data to the backedn server
@@ -60,7 +62,7 @@ const postcard = () => {
         },
       });
       console.log(response);
-      navigate('/dashboard/newsfeed');
+      navigate('/newsfeed');
 
     }
     catch(err)

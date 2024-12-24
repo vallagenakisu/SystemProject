@@ -1,9 +1,8 @@
 import React from "react";
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axiosClient from "../../axios-client";
 import SocialPostCard from "./SocialPostCard";
 const NewsFeed = () => {
-  
   const [posts, setPosts] = useState([]);
   // const navigate = useNavigate();
 
@@ -21,10 +20,11 @@ const NewsFeed = () => {
     fetchPosts();
   }, []);
 
-
   return (
     <div>
-      
+      {posts.map((post,index) => (
+        <SocialPostCard key={index} post={post} />
+      ))}
     </div>
   );
 };
