@@ -4,14 +4,15 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
-
+import { useNavigate } from "react-router-dom";
 const postcard = () => {
+  
   const { user, token, setUser, setToken } = useStateContext();
 
   // Use ref to collect info from different input fields
   const postTextAreaRef = useRef();
   const postImageRef = useRef();
-
+  const navigate = useNavigate();
 
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -37,11 +38,13 @@ const postcard = () => {
       alert("Posting requires some text or any image");
       postTextAreaRef.current.focus();
       postImageRef.current.focus();
+      return;
     }
 
     // Now writing the logic to send the data to the backedn server
     const selectedImage = postImageRef.current.files[0];
     const data = new FormData();
+    data.append("user_id",user.id);
     data.append("postContent",postTextAreaRef.current.value);
 
     if(selectedImage)
@@ -59,6 +62,7 @@ const postcard = () => {
         },
       });
       console.log(response);
+      navigate('/newsfeed');
 
     }
     catch(err)
@@ -68,31 +72,31 @@ const postcard = () => {
 
   };
 
-  useEffect(() => {
-    if (token) {
-      axiosClient
-        .get("/user", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          const fetchedUser = response.data;
+  // useEffect(() => {
+  //   if (token) {
+  //     axiosClient
+  //       .get("/user", {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       })
+  //       .then((response) => {
+  //         const fetchedUser = response.data;
 
-          // Only update the user if it's different to avoid infinite re-renders
-          if (JSON.stringify(fetchedUser) !== JSON.stringify(user)) {
-            setUser(fetchedUser); // Save user data in context
-            console.log("User is set:", fetchedUser);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          setToken(null); // Clear token if fetch fails
-        });
-    }
-    // Automatically focusing the textarea when the component is mounted
-    if (postTextAreaRef.current) {
-      postTextAreaRef.current.focus();
-    }
-  }, [token, user, setUser, setToken]); // Dependencies for useEffect
+  //         // Only update the user if it's different to avoid infinite re-renders
+  //         if (JSON.stringify(fetchedUser) !== JSON.stringify(user)) {
+  //           setUser(fetchedUser); // Save user data in context
+  //           console.log("User is set:", fetchedUser);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching user data:", error);
+  //         setToken(null); // Clear token if fetch fails
+  //       });
+  //   }
+  //   // Automatically focusing the textarea when the component is mounted
+  //   if (postTextAreaRef.current) {
+  //     postTextAreaRef.current.focus();
+  //   }
+  // }, [token, user, setUser, setToken]); // Dependencies for useEffect
 
   if (!user) {
     return <p>Loading...</p>; // Show a loading state until user is fetched
@@ -166,6 +170,7 @@ const postcard = () => {
         </div>
 
         <div className="flex justify-center items-center p-8">
+          
           <button
             type="submit"
             className="w-full sm:w-auto px-6 py-2 bg-primaryfontcolor text-white rounded-lg tracking-widest hover:bg-primaryfontcolor-dark transition"
