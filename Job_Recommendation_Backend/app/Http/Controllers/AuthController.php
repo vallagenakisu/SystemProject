@@ -76,6 +76,25 @@ class AuthController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $currentUser = User::find($id);
+        if ($currentUser) {
+            return response()->json([
+                'id' => $currentUser->id,
+                'name' => $currentUser->name,
+                'email' => $currentUser->email,
+                'profile_image' => $currentUser->profile_image ? asset('storage/' . $currentUser->profile_image) : null,
+
+            ]);
+        }
+        else
+
+        {
+            return "User not found";
+        }
+    }
+
     public function postFeed(FeedPostRequest $feedPostRequest)
     {
         $data = $feedPostRequest->validated(); // Validate and capture the data
@@ -103,9 +122,9 @@ class AuthController extends Controller
 
     public function newsFeed()
     {
-        $posts = PostFeed::with('user:id,name,profile_image')->select('user_id','postContent', 'postImage')->get();
+        $posts = PostFeed::with('user:id,name,profile_image')->select('user_id', 'postContent', 'postImage')->get();
 
-    
+
         return response()->json($posts);
     }
 }

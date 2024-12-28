@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 Route::middleware('auth:sanctum')->get('/user' , [AuthController::class , 'get']  );
+
+Route::get('/currentusers/{id}',[AuthController::class, 'show']);
 Route::middleware('auth:sanctum')->post('/logout' , [AuthController::class,'logout']);
 Route::post('/signup' , [AuthController::class,'signup']);
 Route::post('/login' , [AuthController::class,'login']);
