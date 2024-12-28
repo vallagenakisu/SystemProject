@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const SocialPostCard = ({ post }) => {
   // const [isLiked, setIsLiked] = React.useState(false);
@@ -22,9 +23,13 @@ const SocialPostCard = ({ post }) => {
             />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800">{post.user.name}</h3>
+            <h3 className="font-semibold text-gray-800">
+              
+              <Link to={`/dashboard/profile/${post.user.id}`}>{post.user.name}</Link>
+              
+              </h3>
           </div>
-        </div>
+        </div>/
         <button className="text-gray-500 hover:text-gray-700">
           <i className="fas fa-ellipsis-h text-xl"></i>
         </button>

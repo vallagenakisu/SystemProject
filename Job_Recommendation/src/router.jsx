@@ -10,13 +10,14 @@ import DashNotofications from './Components/EmployeeDashBoard/DashNotofications'
 import Widgets from './Components/EmployeeDashBoard/Widgets';
 import NewsFeed from './Components/FeedPage/NewsFeed';
 import PostCard from './Components/EmployeeDashBoard/PostCard.jsx'
+import Profiles from './Components/Profiles/Profiles.jsx';
 const router = createBrowserRouter([
     {
         path : '/' ,
         element: <DeafualyLayout/>,
         children : [
             {
-                path : '/' ,
+                path : '/dashboard' ,
                 element : <EmployeeDashBoard/>,
                 children:[
                     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
                         path:'postFeed',
                         element:<PostCard/>
                     },
+                    {
+                        path:'profile/:id', // Using dynamic routing for showing every profile
+                        element: <Profiles/>
+                    },
                     
                 ]
             },
@@ -64,7 +69,8 @@ const router = createBrowserRouter([
             {
                 path : '/signup' ,
                 element : <SignUp/>
-            }
+            },
+            
         ]
     }
 ])

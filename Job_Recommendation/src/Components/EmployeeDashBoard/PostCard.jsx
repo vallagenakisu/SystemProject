@@ -62,7 +62,7 @@ const postcard = () => {
         },
       });
       console.log(response);
-      navigate('/newsfeed');
+      navigate('/dashboard/newsfeed');
 
     }
     catch(err)
