@@ -8,16 +8,16 @@ const EmployeeDashBoard = () => {
   const { user, setUser } = useStateContext();
 
   return (
-    <>
-      <div className="flex flex-col md:flex-row gap-10">
+    <div>
+      <div className="flex flex-col md:flex-row ">
         <div>
           <SideBar />
         </div>
-        <div className=" flex-1 py-4 justify-center items-center">
+        <div className=" flex-1 justify-center items-center">
           <Outlet />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
