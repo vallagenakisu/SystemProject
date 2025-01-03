@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('task', function (Blueprint $table) {
             $table->id();
-            $table->string('task');
+            $table->string('title');
             $table->string('description');
             $table->date('due_date')->format('m-d-Y');
             $table->boolean('status');

@@ -32,7 +32,7 @@ class TaskController extends Controller
         $data = $request->validated();
         $user = $request->user();
         $task = Task::create([
-            'assigned_by' => $user->id(), // Assuming authenticated user assigns the task
+            'assigned_by' => $data['assigned_by'], // Assuming authenticated user assigns the task
             'assigned_to' => $data['assigned_to'],
             'title' => $data['title'],
             'description' => $data['description'],
