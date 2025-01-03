@@ -14,7 +14,7 @@ axiosClient.interceptors.request.use((config)=>{
 axiosClient.interceptors.response.use((response)=>{
     return response;
 },(error)=>{    
-    if(error.response.status === 401){
+    if(error.response.staatus === 401){
         localStorage.removeItem("token");
         window.location = "/login";
     }

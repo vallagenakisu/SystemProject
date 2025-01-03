@@ -78,7 +78,7 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="hidden md:block bg-sidebarbgcolor w-52 h-screen m-4 top-0 left-0 rounded-lg fixed">
+      <div className="hidden md:block bg-sidebarbgcolor w-52 h-screen m-4 rounded-lg">
         <div className="flex flex-col px-4 ">
           {/* Welcome Message of Dashboard */}
           <div className="flex flex-col justify-center items-center mt-6 ">
