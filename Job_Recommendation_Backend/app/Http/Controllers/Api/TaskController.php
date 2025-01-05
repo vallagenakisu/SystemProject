@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use GuzzleHttp\Psr7\Request;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(StoreTaskRequest $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $userId = $request->user()->id;
+        $tasks = Task::where('assigned_by', $userId)
+                    ->orWhere('assigned_to', $userId)
+                    ->get();
+        return response()->json($tasks);
     }
 
     /**
@@ -45,18 +43,10 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Task $task)
     {
         $task = Task::with(['assignedBy', 'assignedTo'])->get();
         return response()->json($task);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(\App\Models\Task $task)
-    {
-        //
     }
 
     /**
@@ -72,7 +62,6 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-
     /**
      * Remove the specified resource from storage.
      */
@@ -80,7 +69,6 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
-
         return response()->json(['message' => 'Task deleted successfully']);
     }
 }

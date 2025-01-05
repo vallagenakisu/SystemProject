@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +16,5 @@ Route::post('/feedpost',[AuthController::class, 'postFeed']);
 Route::get('/newsFeed',[AuthController::class,'newsFeed']);
 
 // api endpoint for tasks
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/postTask', [TaskController::class, 'store']);
-    
-});
-Route::get('/getTask/{id}', [TaskController::class, 'show']);
+Route::middleware('auth:sanctum')->apiResource('tasks',TaskController::class);
+
