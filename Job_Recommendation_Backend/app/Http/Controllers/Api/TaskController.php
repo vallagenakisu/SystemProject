@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use GuzzleHttp\Psr7\Request;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(StoreTaskRequest $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $userId = $request->user()->id;
+        $tasks = Task::where('assigned_by', $userId)
+                    ->orWhere('assigned_to', $userId)
+                    ->get();
+        return response()->json($tasks);
     }
 
     /**
@@ -32,11 +30,12 @@ class TaskController extends Controller
         $data = $request->validated();
         $user = $request->user();
         $task = Task::create([
-            'assigned_by' => $data['assigned_by'], // Assuming authenticated user assigns the task
-            'assigned_to' => $data['assigned_to'],
+            'assigned_by' => $user->id, 
+            'assigned_to' => $user->id,
             'title' => $data['title'],
             'description' => $data['description'],
             'due_date' => $data['due_date'],
+            'status' => False,
         ]);
         return response()->json($task, 201);
     }
@@ -44,18 +43,10 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        $task = Task::with(['assignedBy', 'assignedTo'])->findOrFail($id);
+        $task = Task::with(['assignedBy', 'assignedTo'])->get();
         return response()->json($task);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(\App\Models\Task $task)
-    {
-        //
     }
 
     /**
@@ -71,7 +62,6 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
-
     /**
      * Remove the specified resource from storage.
      */
@@ -79,7 +69,6 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
-
         return response()->json(['message' => 'Task deleted successfully']);
     }
 }

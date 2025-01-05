@@ -39,6 +39,11 @@ class AuthController extends Controller
             'token' => $token
         ]);
     }
+    public function getuser($id)
+    {
+        $user = User::find($id);
+        return response()->json($user);
+    }
     public function login(LoginRequest $req)
     {
         $data = $req->validated();

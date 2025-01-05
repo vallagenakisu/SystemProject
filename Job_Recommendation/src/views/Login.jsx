@@ -53,9 +53,6 @@ const Login = () => {
     axiosClient
       .post("/login", data)
       .then((response) => {
-        // console.log(response);
-        // console.log(response.data.user);
-        // console.log(response.data.token);
         setToken(response.data.token);
         setUser(response.data.user);
       })

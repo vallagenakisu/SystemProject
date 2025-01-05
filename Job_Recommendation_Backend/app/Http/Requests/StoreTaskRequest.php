@@ -11,7 +11,7 @@ class StoreTaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,10 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'assigned_to' => 'required|exists:users,id',
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'due_date' => 'nullable|date',
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'due_date' => ['nullable', 'date'],
+            'status' => ['nullable', 'boolean'],
         ];
     }
 }
