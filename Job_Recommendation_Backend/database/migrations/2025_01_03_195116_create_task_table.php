@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->date('due_date')->format('m-d-Y');
+            $table->date('due_date')->format('Y-m-d');
             $table->boolean('status');
             $table->timestamps();
             $table->unsignedBigInteger('assigned_to');

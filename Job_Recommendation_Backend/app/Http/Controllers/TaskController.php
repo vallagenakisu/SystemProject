@@ -32,11 +32,12 @@ class TaskController extends Controller
         $data = $request->validated();
         $user = $request->user();
         $task = Task::create([
-            'assigned_by' => $data['assigned_by'], // Assuming authenticated user assigns the task
-            'assigned_to' => $data['assigned_to'],
+            'assigned_by' => $user->id, 
+            'assigned_to' => $user->id,
             'title' => $data['title'],
             'description' => $data['description'],
             'due_date' => $data['due_date'],
+            'status' => False,
         ]);
         return response()->json($task, 201);
     }
@@ -44,9 +45,9 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show()
     {
-        $task = Task::with(['assignedBy', 'assignedTo'])->findOrFail($id);
+        $task = Task::with(['assignedBy', 'assignedTo'])->get();
         return response()->json($task);
     }
 
