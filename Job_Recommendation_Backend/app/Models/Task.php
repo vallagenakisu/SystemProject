@@ -14,6 +14,7 @@ class Task extends Model
         'description',
         'due_date',
         'status',
+        'parent_id',
     ];
 
     //relationship
@@ -25,4 +26,13 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
+    public function childTasks()
+    {
+        return $this->hasMany(Task::class, 'parent_id');
+    }
+    public function parentTask()
+    {
+        return $this->belongsTo(Task::class, 'parent_id');
+    }
+
 }
