@@ -1,6 +1,6 @@
 import axios from "axios";
 const axiosClient = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://api.trackprogress.xyz/api",
     });
 
 axiosClient.interceptors.request.use((config)=>{
