@@ -15,7 +15,6 @@ import axiosClient from "../../axios-client";
 const SideBar = () => {
   const { user, token, setUser, setToken } = useStateContext();
   const onLogout = () => {
-    // console.log("logout");
     axiosClient
       .post(
         "/logout",
@@ -85,12 +84,12 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="hidden md:block bg-sidebarbgcolor w-52 h-screen m-4 top-0 left-0 rounded-lg fixed">
+      <div className="hidden md:block bg-sidebarbgcolor w-52 h-screen m-4 rounded-lg">
         <div className="flex flex-col px-4 ">
           {/* Welcome Message of Dashboard */}
           <div className="flex flex-col justify-center items-center mt-6 ">
             <span className="text-black font-extralight text-center">
-              Welcome to
+              Welcom
             </span>
             <h1 className="text-primaryfontcolor text-xl font-extrabold tracking-widest  text-center">
               Dashboard
