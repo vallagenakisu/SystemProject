@@ -30,10 +30,11 @@ const Widgets = () => {
       description: description.current.value,
       due_date: date,
     }
+    console.log(data);
     if(localStorage.getItem("ACCESS_TOKEN") != null){
       axiosClient
       .post(
-        "/postTask",data,
+        `/tasks`,data,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
@@ -57,7 +58,7 @@ const Widgets = () => {
   }
   const getTasks = () => {
     axiosClient
-      .get(`/getTask/${user.id}`, {
+      .get(`/tasks`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
         },
