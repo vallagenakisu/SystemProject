@@ -15,9 +15,9 @@ const SocialPostCard = ({ post }) => {
       {/* Post Header */}
       <div className="w-full p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+          <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden cursor-pointer">
             <img
-              src={"http://localhost:8000/storage/" + post.user.profile_image}
+              src={"http://api.trackprogress.xyz/storage/app/public/" + post.user.profile_image}
               alt="Profile"
               className="w-full h-full object-cover"
             />
@@ -29,7 +29,7 @@ const SocialPostCard = ({ post }) => {
               
               </h3>
           </div>
-        </div>/
+        </div>
         <button className="text-gray-500 hover:text-gray-700">
           <i className="fas fa-ellipsis-h text-xl"></i>
         </button>
@@ -44,7 +44,7 @@ const SocialPostCard = ({ post }) => {
       {post.postImage && (
         <div className="w-full aspect-video relative">
           <img
-            src={"http://localhost:8000/storage/" + post.postImage}
+            src={"http://api.trackprogress.xyz/storage/app/public/" + post.postImage}
             alt="Post content"
             className="w-full h-full object-cover"
           />

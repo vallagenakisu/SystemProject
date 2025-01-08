@@ -6,7 +6,7 @@ const Menubar = () => {
   const menuItems = [
     { label: "ABOUT", path: "about" },
     { label: "PROJECTS", path: "projects" },
-    { label: "POSTS", path: "posts" },
+    
   ];
 
   return (

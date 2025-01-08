@@ -1,4 +1,4 @@
-import { createBrowserRouter,Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import DeafualyLayout from "./Layouts/DeafualyLayout";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
@@ -12,6 +12,7 @@ import NewsFeed from "./Components/FeedPage/NewsFeed";
 import PostCard from "./Components/EmployeeDashBoard/PostCard.jsx";
 import Profiles from "./Components/Profiles/Profiles.jsx";
 import About from "./Components/Profiles/About.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
                 path: "about",
                 element: <About />,
               },
+              
             ],
           },
         ],
