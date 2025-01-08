@@ -18,7 +18,14 @@ Route::post('/feedpost',[AuthController::class, 'postFeed']);
 Route::get('/newsFeed',[AuthController::class,'newsFeed']);
 
 // api endpoint for tasks
+// get request to api/tasks gets all the task of a specific user
+// post request to api/tasks creates a new task
+// delete request to api/tasks/{task_id} deletes a task
+// put request to api/tasks/{task_id} updates a task
 Route::middleware('auth:sanctum')->apiResource('tasks',TaskController::class);
+
+
+
 Route::middleware('auth:sanctum')->prefix('childtasks/{task}')->group(function () {
     Route::post('children', [ChildTaskController::class, 'store']); // Add child task
     Route::get('children', [ChildTaskController::class, 'show']); // Get child tasks
