@@ -20,10 +20,13 @@ return new class extends Migration
             $table->boolean('status')->nullable();
             $table->unsignedBigInteger('assigned_by');
             $table->unsignedBigInteger('assigned_to');
+            // Add parent child relationship
+            $table->unsignedBigInteger('parent_id')->nullable();
 
             //foreign key
             $table->foreign('assigned_by')->references('id')->on('users');
             $table->foreign('assigned_to')->references('id')->on('users');
+            $table->foreign('parent_id')->references('id')->on('tasks')->onDelete('cascade'); 
         });
     }
 

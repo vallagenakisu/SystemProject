@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\API\ChildTaskController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -17,4 +19,10 @@ Route::get('/newsFeed',[AuthController::class,'newsFeed']);
 
 // api endpoint for tasks
 Route::middleware('auth:sanctum')->apiResource('tasks',TaskController::class);
+Route::middleware('auth:sanctum')->prefix('childtasks/{task}')->group(function () {
+    Route::post('children', [ChildTaskController::class, 'store']); // Add child task
+    Route::get('children', [ChildTaskController::class, 'show']); // Get child tasks
+    Route::put('children/{child}', [ChildTaskController::class, 'update']); // Get child tasks
+    Route::delete('children/{child}', [ChildTaskController::class, 'destroy']); // Get child tasks
 
+});
