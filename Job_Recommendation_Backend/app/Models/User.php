@@ -61,4 +61,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class ,'assigned_to' );
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)
+            ->withPivot('status')
+            ->withPivot('role')
+            ->withTimestamps();
+    }
+    public function sentRequests()
+    {
+        return $this->hasMany(SendRequest::class, 'sender_id');
+    }
+
+    public function receivedRequests()
+    {
+        return $this->hasMany(SendRequest::class, 'recipient_id');
+    }
+
+    
 }
