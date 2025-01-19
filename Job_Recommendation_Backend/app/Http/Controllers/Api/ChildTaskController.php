@@ -59,9 +59,9 @@ class ChildTaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateChildTask $request,  $id)
+    public function update(UpdateChildTask $request,  $parentId , $childId)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($childId);
         $request->validated();
         $task->update($request->all());
         return response()->json($task);
@@ -70,9 +70,9 @@ class ChildTaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($parentId , $childId)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($childId);
         $task->delete();
         return response()->json(['message' => 'Task deleted successfully']);
     }
