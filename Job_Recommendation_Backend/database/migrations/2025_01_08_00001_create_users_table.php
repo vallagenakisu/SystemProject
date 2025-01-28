@@ -13,16 +13,25 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone_number')->nullable();
+            $table->string('country')->nullable();
+            $table->string('industry')->nullable();
+            $table->float('performance_rating')->nullable();
+            $table->int('experience_year')->nullable();
+            $table->int('completed_project')->nullable();
+            $table->int('ongoing_project')->nullable();
+            $table->enum("account_status" , ['active', 'inactive', 'suspended'])->default('active');
+            $table->string("language")->default('en');
+            $table->boolean('availability_status')->nullable();
             $table->rememberToken();
+            $table->boolean('profile_finished')->default(0);
             $table->timestamps();
-            // foreign key
-            $table->unsignedBigInteger('project_id')->nullable();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('set null');
-
+            
             //$table->foreign('parent_id')->references('id')->on('tasks')->onDelete('cascade'); 
         });
 
