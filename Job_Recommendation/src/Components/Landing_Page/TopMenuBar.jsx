@@ -45,7 +45,7 @@ const TopMenuBar = () => {
   // for handling the hamburger toggle
   const handleHamburger = () => {
     setIsHamburgerOpen(!isHamburgerOpen);
-    console.log(isHamburgerOpen);
+    // console.log(isHamburgerOpen);
   };
   return (
     <>

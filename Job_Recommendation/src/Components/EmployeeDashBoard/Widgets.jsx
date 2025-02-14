@@ -33,7 +33,7 @@ const Widgets = () => {
     if(localStorage.getItem("ACCESS_TOKEN") != null){
       axiosClient
       .post(
-        "/postTask",data,
+        "/tasks",data,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
@@ -57,7 +57,7 @@ const Widgets = () => {
   }
   const getTasks = () => {
     axiosClient
-      .get(`/getTask/${user.id}`, {
+      .get(`/task/${user.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
         },
